@@ -1,0 +1,13 @@
+{
+  "key": "landlight",
+  "label": {
+    "ar": "لاندلايت — صفحات هبوط سريعة",
+    "en": "Landlight — fast landing pages"
+  },
+  "appPort": 80,
+  "devImage": "node:24.22.1-alpine",
+  "devCommand": "npm ci --no-audit --no-fund && mkdir -p node_modules/.rqeim && printf '%s\\n' \"import { mergeConfig } from 'vite'\" \"import base from '../../vite.config.js'\" \"export default mergeConfig(base, { server: { host: '0.0.0.0', port: 5173, strictPort: true, allowedHosts: true, hmr: { clientPort: 443, protocol: 'wss' }, watch: { usePolling: true, interval: 500 } } })\" > node_modules/.rqeim/vite.config.mjs && exec npx vite --config node_modules/.rqeim/vite.config.mjs",
+  "devPort": 5173,
+  "database": null,
+  "sanitizeSql": null
+}
