@@ -4,13 +4,9 @@
     "ar": "لاندلايت — صفحات هبوط سريعة",
     "en": "Landlight — fast landing pages"
   },
+  "compose": true,
   "appPort": 80,
-  "devImage": "node:24.22.1-bookworm",
-  "devCommand": "npm ci --no-audit --no-fund && mkdir -p node_modules/.rqeim && printf '%s\\n' \"import { mergeConfig } from 'vite'\" \"import base from '../../vite.config.js'\" \"export default mergeConfig(base, { server: { host: '0.0.0.0', port: 5173, strictPort: true, allowedHosts: true, hmr: { clientPort: 443, protocol: 'wss' }, watch: { usePolling: true, interval: 500 } } })\" > node_modules/.rqeim/vite.config.mjs && exec npx vite --config node_modules/.rqeim/vite.config.mjs",
-  "devPort": 5173,
+  "defaultSize": "xs",
   "database": null,
-  "sanitizeSql": null,
-  "prodImage": "node:24.22.1-bookworm",
-  "buildCommand": "npm ci --no-audit --no-fund && npm run build",
-  "startCommand": "exec npx --yes serve@14.2.4 -s dist -l tcp://0.0.0.0:80"
+  "sanitizeSql": null
 }
