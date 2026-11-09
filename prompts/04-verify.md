@@ -68,7 +68,9 @@ npm run verify
 | `image-alt` | أكمل `alt` |
 | `link-text` | اكتب نص رابط يصف وجهته، لا «اضغط هنا» |
 | `skip link` أو `<main id="main">` | أضف رابط التخطي في الهيدر وأعط `<main>` هذا المعرّف |
-| `no <lang> version` | أنشئ الصفحة بتلك اللغة بصياغتها |
+| `is not in src/locales/...` أو `is missing:` | أضف المفتاح الناقص إلى ملف تلك اللغة بصياغتها |
+| `has the same text as` | نص مكتوب مباشرة في `src/views/`: حوّله إلى `{{t:مفتاح}}` واكتب نصه لكل لغة |
+| `Pages are written in src/views/` أو `not per language folder` | الصفحات في `src/views/` مرة واحدة، لا في `src/pages/` ولا في مجلد لغة |
 | `is not written in` | اكتب نصوص الصفحة بلغة ملفها |
 | `almost no text in the HTML` | اكتب المحتوى في HTML نفسه |
 | `image over 250KB` أو مقاس أيقونة | أعد `npm run assets` |

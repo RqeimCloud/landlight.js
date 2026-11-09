@@ -1,0 +1,103 @@
+{
+  "contact": {
+    "description": "Reach the Landlight team by email or phone to start the landing page for your business. We reply as soon as we can to agree on the details and timing.",
+    "heading": "Contact us",
+    "text": "We would love to hear from you. Choose what suits you best.",
+    "title": "Contact us | Landlight"
+  },
+  "cta": {
+    "button": "Contact us",
+    "text": "Send us the details of your business and we will begin.",
+    "title": "Ready for your page?"
+  },
+  "faq": {
+    "one": {
+      "a": "Yes, it is designed for mobile first and tested on it before publishing.",
+      "q": "Does the page work on mobile?"
+    },
+    "title": "Frequently asked questions",
+    "two": {
+      "a": "Yes, each language has its own real pages that search engines can index.",
+      "q": "Does it support more than one language?"
+    }
+  },
+  "features": {
+    "one": {
+      "text": "Every page is tested on mobile and desktop before publishing, and only reaches visitors when green.",
+      "title": "Measured speed"
+    },
+    "three": {
+      "text": "A file that explains your site to AI models, and tools that browser agents can call directly.",
+      "title": "Ready for agents"
+    },
+    "title": "What you get",
+    "two": {
+      "text": "Titles, descriptions, a sitemap and structured data are ready on every page automatically.",
+      "title": "Found in search"
+    }
+  },
+  "footer": {
+    "privacy": "Privacy policy",
+    "terms": "Terms of use"
+  },
+  "hero": {
+    "cta": "Get started",
+    "text": "Light pages that show up in search and that AI agents understand, published only after they pass every performance check.",
+    "title": "A landing page that opens instantly and brings you customers"
+  },
+  "index": {
+    "description": "Light landing pages that open in under two seconds, rank in search and can be read by AI agents, published only once every check is green. Talk to us.",
+    "title": "Landlight | Fast landing pages that rank in search"
+  },
+  "language": {
+    "other": "ar",
+    "otherName": "العربية"
+  },
+  "nav": {
+    "contact": "Contact",
+    "faq": "FAQ",
+    "home": "Home"
+  },
+  "notFound": {
+    "heading": "Page not found",
+    "home": "Back to the home page",
+    "text": "The link may have changed or the page was removed.",
+    "title": "Page not found | Landlight"
+  },
+  "privacy": {
+    "description": "Learn what data the Landlight website collects when you visit it or contact us, how we use and protect it, and the rights you have over that data.",
+    "heading": "Privacy policy",
+    "section": "What we collect",
+    "text": "Replace this text with a real privacy policy that matches what this site actually collects before publishing.",
+    "title": "Privacy policy | Landlight"
+  },
+  "steps": {
+    "one": {
+      "text": "Your name, services, audience and the one action you want from visitors.",
+      "title": "Tell us about your business"
+    },
+    "three": {
+      "text": "A page goes live only when every check is green.",
+      "title": "We publish once it passes"
+    },
+    "title": "How it works",
+    "two": {
+      "text": "A design made for your business in every language; the rest is generated.",
+      "title": "We design your page"
+    }
+  },
+  "terms": {
+    "description": "Read the terms that govern your use of the Landlight website and its services, including limits of liability, ownership rights and how to reach us.",
+    "heading": "Terms of use",
+    "section": "Using this site",
+    "text": "Replace this text with real terms of use for this business before publishing.",
+    "title": "Terms of use | Landlight"
+  },
+  "ui": {
+    "footerNav": "Site links",
+    "mainNav": "Main menu",
+    "mobileNav": "Mobile menu",
+    "openMenu": "Open menu",
+    "skip": "Skip to content"
+  }
+}

@@ -34,26 +34,38 @@
 
 ```html
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="{{lang}}" dir="{{dir}}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>الخدمة في المدينة | اسم النشاط</title>
-  <meta name="description" content="من 120 إلى 158 حرفًا، فريد لهذه الصفحة." />
+  <title>{{t:services.title}}</title>
+  <meta name="description" content="{{t:services.description}}" />
   <link rel="stylesheet" href="/app.css" />
 </head>
 <body>
   <include src="src/components/header.html"></include>
-  <main id="main"><h1>عنوان واحد</h1></main>
+  <main id="main"><h1>{{t:services.heading}}</h1></main>
   <include src="src/components/footer.html"></include>
   <script type="module" src="/app.js"></script>
 </body>
 </html>
 ```
 
-- الملف `src/pages/x.html` يظهر على `/x`، ونسخته الإنجليزية `src/pages/en/x.html` على `/en/x`.
-- `<include>` يبدأ من جذر المشروع ولا يدعم `<slot>`، فلكل لغة نسختها في `src/components/en/`.
-- رابط تبديل اللغة: `<a href="{{locale:en}}" hreflang="en" lang="en">English</a>`، ويتحول وقت البناء إلى الصفحة نفسها باللغة الأخرى.
+**كل الصفحات بكل اللغات تتولد من ملف واحد.** تكتب `src/views/services.html` مرة، ونصوصه في `src/locales/ar.json` و`src/locales/en.json`:
+
+```json
+{ "services": { "title": "زراعة الأسنان في الرياض | عيادة النور", "description": "…", "heading": "…" } }
+```
+
+فيخرج البناء `/services` بالعربية و`/en/services` بالإنجليزية، صفحتين HTML حقيقيتين تفهرسهما محركات البحث.
+
+- `{{t:مفتاح}}` نص المفتاح بلغة الصفحة، ويقبل HTML مثل `<strong>`. ويصح داخل السمات (`alt` و`aria-label`) وداخل JSON-LD، ويُهرَّب تلقائيًا.
+- `{{href:contact}}` رابط الصفحة بلغة الصفحة نفسها، و`{{href:index}}` للرئيسية.
+- `{{locale:en}}` الصفحة نفسها بالإنجليزية، لزر تبديل اللغة. في الهيدر الحالي: `{{locale:{{t:language.other}}}}`.
+- `{{lang}}` و`{{dir}}` لوسم `<html>`.
+- `<include>` يبدأ من جذر المشروع ولا يدعم `<slot>`. والمكوّنات تستعمل المفاتيح نفسها، فنسخة واحدة تخدم كل اللغات.
+- `src/pages/` يتولد ويُحذف مع كل بناء، فلا تكتب فيه.
+- اكتب كل لغة بصياغة أهلها: طول الجملة والنبرة والأمثلة تختلف، والمفتاح واحد.
 - رابط التخطي إلى `#main`، والرابطان إلى صفحتي الخصوصية والشروط، يبقيان في كل صفحة.
 
 ## أي فكرة، بدرجة 100

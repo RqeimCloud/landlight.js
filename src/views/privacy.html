@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="{{lang}}" dir="{{dir}}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{t:privacy.title}}</title>
+  <meta name="description" content="{{t:privacy.description}}" />
+  <link rel="stylesheet" href="/app.css" />
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+  <include src="src/components/header.html"></include>
+
+  <main id="main" data-placeholder class="max-w-3xl mx-auto px-4 py-16 leading-8">
+    <h1 class="text-3xl font-bold mb-6">{{t:privacy.heading}}</h1>
+    <h2 class="text-2xl font-semibold mb-3">{{t:privacy.section}}</h2>
+    <p class="text-gray-700">{{t:privacy.text}}</p>
+  </main>
+
+  <include src="src/components/footer.html"></include>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

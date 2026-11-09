@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="{{lang}}" dir="{{dir}}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تواصل معنا | Landlight</title>
-  <meta name="description" content="تواصل مع فريق Landlight عبر البريد الإلكتروني أو الهاتف لبدء صفحة الهبوط الخاصة بنشاطك، ونرد عليك في أقرب وقت لنتفق معك على التفاصيل والموعد المناسب." />
+  <title>{{t:contact.title}}</title>
+  <meta name="description" content="{{t:contact.description}}" />
   <link rel="stylesheet" href="/app.css" />
 </head>
 <body class="bg-gray-50 text-gray-900 antialiased">
   <include src="src/components/header.html"></include>
 
   <main id="main" data-placeholder class="max-w-2xl mx-auto px-4 py-20 text-center">
-    <h1 class="text-3xl font-bold mb-6">تواصل معنا</h1>
-    <p class="text-lg leading-8 text-gray-700 mb-8">نسعد بسماعك. اختر الطريقة الأنسب لك.</p>
+    <h1 class="text-3xl font-bold mb-6">{{t:contact.heading}}</h1>
+    <p class="text-lg leading-8 text-gray-700 mb-8">{{t:contact.text}}</p>
     <div class="flex flex-col gap-3 items-center">
       <a href="mailto:hello@example.com" class="inline-block py-2 text-brand underline">hello@example.com</a>
       <a href="tel:+966500000000" dir="ltr" class="inline-block py-2 text-brand underline">+966 50 000 0000</a>

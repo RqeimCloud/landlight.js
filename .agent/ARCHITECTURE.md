@@ -12,8 +12,10 @@
 │   ├── public/             # Served as-is from the site root (icons, og.png, llms.txt)
 │   ├── images/             # Generated from media/ by npm run assets
 │   ├── islands/            # JavaScript that runs only where a page asks for it
-│   ├── components/         # Header and footer per language
-│   └── pages/              # Hand-written pages; first locale at the root, others in folders
+│   ├── components/         # Header, footer and other partials, one copy for every language
+│   ├── views/              # Each page written once, with {{t:key}} for its words
+│   ├── locales/            # <locale>.json: the words of every page in that language
+│   └── pages/              # Generated from views, one real page per language; git-ignored
 ├── assets/                 # NOT processed by Vite — upload directly to Cloudflare R2
 │   └── images/             # Referenced via absolute CDN URLs
 ├── site.config.json        # The site's facts: URL, brand, languages, business
@@ -30,10 +32,11 @@
 ## Key decisions
 
 - **Vite `root: 'src'`** — keeps source files in `src/`, output goes to `dist/`.
-- **`appType: 'mpa'`** — multi-page mode. Every `src/pages/*.html` is an entry point.
+- **`appType: 'mpa'`** — multi-page mode. Every generated `src/pages/**.html` is an entry point.
 - **`base: '/'`** — all asset paths are root-relative (`/app.css`, `/app.js`), works at any nesting depth.
 - **No legacy Tailwind config** — Tailwind v4 is `@import "tailwindcss"` in `app.css`, processed by `@tailwindcss/vite`.
 - **HTML includes resolve from project root** — `<include src="src/components/header.html">` always works.
+- **i18n by static generation** — `renderPages()` in `scripts/site-plugin.mjs` copies each view per language and `seo()` fills it, so every language is a real indexed page. See `PAGES.md`.
 - **MPA, static, minimal JS** — every page is complete HTML and CSS; `src/app.js` starts islands only where asked.
 - **View Transitions are CSS only** — `@view-transition` in `app.css`; speculation rules prerender links.
 - **Offline without stale updates** — `sw.js` asks the network first for pages and only serves hashed `/assets/` from cache.

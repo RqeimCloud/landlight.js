@@ -10,7 +10,7 @@ Reusable partials live in `src/components/`. Include them in any page:
 
 Paths are always relative to the **project root** (the directory containing `vite.config.js`), regardless of how deeply nested the page is.
 
-A partial is inserted as it is. `<slot>` is not supported, so each language has its own copy under `src/components/<locale>/`.
+A partial is inserted as it is (`<slot>` is not supported). Its words are `{{t:key}}` tokens, so one copy serves every language: see `PAGES.md`.
 
 ## Alpine.js components
 

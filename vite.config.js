@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import htmlInclude from 'vite-plugin-html-include'
-import { inlineStyles, seo, writeAgentFiles } from './scripts/site-plugin.mjs'
+import { inlineStyles, renderPages, seo, writeAgentFiles } from './scripts/site-plugin.mjs'
 import { readdirSync, readFileSync, writeFileSync, rmSync, mkdirSync, existsSync } from 'node:fs'
 import { resolve, relative, dirname } from 'node:path'
 
@@ -11,6 +11,7 @@ const walk = (dir, base = dir) =>
     return d.isDirectory() ? walk(p, base) : [relative(base, p)]
   })
 
+renderPages()
 const pages = walk(resolve('src/pages')).filter(f => f.endsWith('.html'))
 const input = Object.fromEntries(pages.map(f => [f.replace(/\.html$/, ''), resolve('src/pages', f)]))
 
@@ -27,6 +28,22 @@ const rewriter = () => ({
       else if (path.endsWith('.html') && !path.startsWith('/pages/')) r.url = '/pages' + path + q
       else if (!path.includes('.') && !path.startsWith('/pages/') && !path.startsWith('/@')) r.url = '/pages' + path + '.html' + q
       n()
+    })
+  },
+})
+
+// While developing, a change to a view or a text file regenerates the pages.
+const views = () => ({
+  name: 'views',
+  configureServer(server) {
+    server.watcher.on('all', (_, file) => {
+      if (!file.startsWith(resolve('src/views')) && !file.startsWith(resolve('src/locales'))) return
+      try {
+        renderPages()
+        server.ws.send({ type: 'full-reload' })
+      } catch (error) {
+        console.error(error.message)
+      }
     })
   },
 })
@@ -54,6 +71,6 @@ export default defineConfig({
   base: '/',
   root: 'src',
   appType: 'mpa',
-  plugins: [tailwindcss(), htmlInclude({ root: process.cwd() }), rewriter(), flattener(), seo(pages)],
+  plugins: [tailwindcss(), htmlInclude({ root: process.cwd() }), views(), rewriter(), flattener(), seo(pages)],
   build: { outDir: '../dist', emptyOutDir: true, assetsInlineLimit: 0, modulePreload: false, rollupOptions: { input } },
 })

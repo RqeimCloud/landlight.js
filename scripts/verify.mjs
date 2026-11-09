@@ -127,8 +127,12 @@ function checkPage(page, html, seen, fail) {
 }
 
 function checkFiles(pages, fail) {
-  for (const page of pages.filter(p => p !== NOT_INDEXED)) {
-    for (const language of locales) if (!pages.includes(pageIn(page, language))) fail(`${page} has no ${language} version: create src/pages/${pageIn(page, language)}`)
+  // Each language is generated from the same view, so the same words twice mean untranslated text.
+  const words = page => readFileSync(join(DIST, page), 'utf-8').split('<main')[1]?.split('</main>')[0].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+  for (const page of pages.filter(p => p !== NOT_INDEXED && localeOf(p) === locales[0])) {
+    for (const language of locales.slice(1)) {
+      if (words(page) === words(pageIn(page, language))) fail(`${pageIn(page, language)} has the same text as ${page}: write every word as {{t:key}} in src/views/ with its text in src/locales/`)
+    }
   }
   const assets = readdirSync(DIST, { recursive: true }).filter(f => f.endsWith('.js') && f !== 'sw.js')
   const total = assets.reduce((sum, f) => sum + gzipSync(readFileSync(join(DIST, f))).length, 0)

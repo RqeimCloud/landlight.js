@@ -1,8 +1,8 @@
 // Everything search engines and agents need that can be derived is derived here, from
 // site.config.json and each page's own <title> and description, so a page cannot forget it.
 import { createHash } from 'node:crypto'
-import { readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
-import { join, relative, resolve } from 'node:path'
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
+import { dirname, join, relative, resolve } from 'node:path'
 
 export const site = JSON.parse(readFileSync(resolve('site.config.json'), 'utf-8'))
 export const locales = Object.keys(site.locales)
@@ -12,6 +12,9 @@ export const indexNowKey = createHash('sha256').update(site.url).digest('hex').s
 
 const [defaultLocale] = locales
 const DIST = resolve('dist')
+const VIEWS = resolve('src/views')
+const PAGES = resolve('src/pages')
+const LOCALES = resolve('src/locales')
 
 // verify.mjs builds against its local server: Lighthouse fails a canonical on another domain.
 const origin = (process.env.SITE_URL || site.url).replace(/\/$/, '')
@@ -23,6 +26,60 @@ export const pageIn = (page, locale) => (locale === defaultLocale ? basePage(pag
 
 // contact.html → /contact, index.html → /, en/index.html → /en/. Matches nginx.conf.
 export const routeOf = page => '/' + page.replace(/\.html$/, '').replace(/(^|\/)index$/, '$1')
+
+// One design, a real page per language, as Astro's i18n does. src/views/x.html is copied to
+// src/pages/x.html for the first locale and src/pages/<locale>/x.html for each other one, and
+// seo() fills each copy from src/locales/<locale>.json. src/pages/ is generated: never edit it.
+const flatten = (object, prefix = '') =>
+  Object.entries(object).flatMap(([key, value]) => (value && typeof value === 'object' ? flatten(value, `${prefix}${key}.`) : [[prefix + key, String(value)]]))
+const texts = () =>
+  Object.fromEntries(locales.map(locale => {
+    const file = join(LOCALES, `${locale}.json`)
+    return [locale, existsSync(file) ? Object.fromEntries(flatten(JSON.parse(readFileSync(file, 'utf-8')))) : {}]
+  }))
+
+export const renderPages = () => {
+  if (!existsSync(VIEWS)) throw new Error('Pages are written in src/views/; src/pages/ is generated from them.')
+  const all = texts()
+  if (locales.length > 1) {
+    const keys = new Set(Object.values(all).flatMap(Object.keys))
+    for (const locale of locales) {
+      if (!existsSync(join(LOCALES, `${locale}.json`))) throw new Error(`Create src/locales/${locale}.json: every language has its own text file.`)
+      const missing = [...keys].filter(key => !(key in all[locale]))
+      if (missing.length) throw new Error(`src/locales/${locale}.json is missing: ${missing.join(', ')}`)
+    }
+  }
+  const views = readdirSync(VIEWS, { recursive: true }).filter(f => f.endsWith('.html')).map(f => f.split('\\').join('/'))
+  const misplaced = views.filter(view => locales.includes(view.split('/')[0]))
+  if (misplaced.length) throw new Error(`A view is written once for every language, not per language folder: ${misplaced.join(', ')}`)
+  rmSync(PAGES, { recursive: true, force: true })
+  for (const view of views) {
+    const html = readFileSync(join(VIEWS, view), 'utf-8')
+    for (const locale of view === NOT_INDEXED ? [defaultLocale] : locales) {
+      const target = join(PAGES, pageIn(view, locale))
+      mkdirSync(dirname(target), { recursive: true })
+      writeFileSync(target, html)
+    }
+  }
+}
+
+// {{t:key}} is the text of that key; inside an attribute its quotes are escaped, inside JSON-LD
+// it is JSON-escaped. {{href:contact}} links to that page in the same language.
+const TEXT = /\{\{t:([\w.-]+)\}\}/g
+const fill = (html, locale) => {
+  const text = texts()[locale]
+  const value = key => {
+    if (!(key in text)) throw new Error(`{{t:${key}}} is not in src/locales/${locale}.json`)
+    return text[key]
+  }
+  return html
+    .replace(/(<script type="application\/ld\+json">)([\s\S]*?)(<\/script>)/g, (_, open, json, close) => open + json.replace(TEXT, (__, key) => JSON.stringify(value(key)).slice(1, -1)) + close)
+    .replace(/="[^"]*"/g, attr => attr.replace(TEXT, (_, key) => value(key).replace(/"/g, '&quot;')))
+    .replace(TEXT, (_, key) => value(key))
+    .replaceAll('{{lang}}', locale)
+    .replaceAll('{{dir}}', RTL.includes(locale) ? 'rtl' : 'ltr')
+    .replace(/\{\{href:([\w/-]+)\}\}/g, (_, name) => routeOf(pageIn(`${name}.html`, locale)))
+}
 
 // Titles reach this file HTML-escaped; JSON and plain text want the words themselves.
 const plain = text => text.replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
@@ -235,7 +292,8 @@ export const seo = pages => ({
   transformIndexHtml: {
     order: 'post',
     handler(html, ctx) {
-      const page = relative(resolve('src/pages'), ctx.filename)
+      const page = relative(PAGES, ctx.filename)
+      html = fill(html, localeOf(page))
       return html
         .replace(/\{\{locale:([a-z-]+)\}\}/g, (tag, locale) => (locales.includes(locale) ? routeOf(page === NOT_INDEXED ? pageIn('index.html', locale) : pageIn(page, locale)) : tag))
         .replace('</head>', () => `  ${headFor(page, html, pages)}\n</head>`)
