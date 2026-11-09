@@ -1,4 +1,6 @@
 .git
 .agent
+prompts
+media
 node_modules
 dist

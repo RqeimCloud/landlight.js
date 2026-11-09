@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify": "node scripts/verify.mjs",
+    "assets": "npm install --no-save --no-audit --no-fund sharp@0.35.5 svgo@4.1.0 && node scripts/assets.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "devDependencies": {
     "vite": "^8.0.0",

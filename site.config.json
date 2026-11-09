@@ -1,0 +1,21 @@
+{
+  "url": "https://example.com",
+  "email": "hello@example.com",
+  "phone": "+966500000000",
+  "sameAs": [],
+  "brand": { "theme": "#1d4ed8", "background": "#ffffff" },
+  "locales": {
+    "ar": {
+      "og": "ar_SA",
+      "name": "Landlight",
+      "description": "صفحات هبوط خفيفة وسريعة تظهر في محركات البحث ويفهمها وكلاء الذكاء الاصطناعي."
+    },
+    "en": {
+      "og": "en_US",
+      "name": "Landlight",
+      "description": "Light, fast landing pages that rank in search and that AI agents can read."
+    }
+  },
+  "business": null,
+  "exceptions": {}
+}

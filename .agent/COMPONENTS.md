@@ -10,26 +10,11 @@ Reusable partials live in `src/components/`. Include them in any page:
 
 Paths are always relative to the **project root** (the directory containing `vite.config.js`), regardless of how deeply nested the page is.
 
-### Creating a component
-
-File: `src/components/my-component.html`
-```html
-<div class="p-4 bg-white rounded shadow">
-  <slot>Default content</slot>
-</div>
-```
-
-Use it with slot content:
-
-```html
-<include src="src/components/my-component.html">
-  <p>Custom content injected into the slot.</p>
-</include>
-```
+A partial is inserted as it is. `<slot>` is not supported, so each language has its own copy under `src/components/<locale>/`.
 
 ## Alpine.js components
 
-Alpine is initialized globally in `src/app.js` with the Collapse and Focus plugins. Use it directly in any page or component:
+Use Alpine on any page or component that needs state; pages without `x-data` do not download it:
 
 ```html
 <!-- Dropdown / toggle -->
@@ -59,19 +44,8 @@ Alpine is initialized globally in `src/app.js` with the Collapse and Focus plugi
 - **Collapse**: `x-collapse` directive for smooth height animations.
 - **Focus**: `x-trap` directive for focus trapping (modals, dialogs).
 
-### Adding more Alpine plugins
+Alpine is bundled from npm by `src/alpine.js` and loads only on pages containing `x-data`. Add plugins there.
 
-Install the npm package, then add it to `src/app.js`:
+## Islands
 
-```js
-import Alpine from 'alpinejs'
-import collapse from '@alpinejs/collapse'
-import focus from '@alpinejs/focus'
-import myPlugin from 'my-alpine-plugin'
-
-Alpine.plugin(collapse)
-Alpine.plugin(focus)
-Alpine.plugin(myPlugin)
-
-Alpine.start()
-```
+`<div data-island="name">` runs the default export of `src/islands/name.js` with that element when it nears the screen, or at idle with `data-load="idle"`.

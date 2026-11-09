@@ -1,14 +1,43 @@
 @import "tailwindcss";
 
-html {
-  view-transition-name: root;
+/* The site's design lives here: colours, type scale, spacing. */
+@theme {
+  --color-brand: #1d4ed8;
+  --color-brand-dark: #1e40af;
 }
 
-@view-transition {
-  navigation: auto;
+/* Same-origin navigations cross-fade. The header is its own layer so it holds still. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  body > header {
+    view-transition-name: site-header;
+  }
+
+  ::view-transition-group(root) {
+    animation-duration: 0.25s;
+  }
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.4s;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Outside any layer on purpose: no utility can remove the keyboard outline. */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+[x-cloak] {
+  display: none !important;
 }

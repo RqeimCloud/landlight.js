@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import htmlInclude from 'vite-plugin-html-include'
-import { cwd } from 'node:process'
+import { inlineStyles, seo, writeAgentFiles } from './scripts/site-plugin.mjs'
 import { readdirSync, readFileSync, writeFileSync, rmSync, mkdirSync, existsSync } from 'node:fs'
 import { resolve, relative, dirname } from 'node:path'
 
@@ -45,19 +45,8 @@ const flattener = () => ({
       rmSync(abs)
     })
     rmSync(src, { recursive: true })
-  },
-})
-
-const viewTransitions = () => ({
-  name: 'view-transitions',
-  transformIndexHtml: {
-    order: 'pre',
-    handler(html) {
-      if (/name\s*=\s*["']view-transition["']/.test(html)) return html
-      const meta = '<meta name="view-transition" content="same-origin">'
-      const script = '<script blocking="render">document.addEventListener("pagereveal",async e=>{if(e.viewTransition)await e.viewTransition.ready})<\/script>'
-      return html.replace('<head>', `<head>\n  ${meta}\n  ${script}`)
-    },
+    inlineStyles()
+    writeAgentFiles()
   },
 })
 
@@ -65,6 +54,6 @@ export default defineConfig({
   base: '/',
   root: 'src',
   appType: 'mpa',
-  plugins: [tailwindcss(), htmlInclude({ root: cwd() }), rewriter(), flattener(), viewTransitions()],
-  build: { outDir: '../dist', emptyOutDir: true, rollupOptions: { input } },
+  plugins: [tailwindcss(), htmlInclude({ root: process.cwd() }), rewriter(), flattener(), seo(pages)],
+  build: { outDir: '../dist', emptyOutDir: true, assetsInlineLimit: 0, modulePreload: false, rollupOptions: { input } },
 })

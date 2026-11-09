@@ -10,58 +10,16 @@ Configuration is **CSS-first**. No `tailwind.config.js` file. Everything lives i
 
 All Tailwind utility classes are available on every page that loads `/app.css`.
 
+The site's colours, fonts and spacing are tokens in `@theme`, written for each site. Use logical utilities (`ms-*`, `pe-*`, `text-start`) so both directions work.
+
+The build inlines the stylesheet into each page when it is under 50KB, so nothing blocks the first paint.
+
 ## View Transitions
 
-Enabled globally via `src/app.css`:
+Enabled in `src/app.css` with `@view-transition { navigation: auto }`, inside `prefers-reduced-motion: no-preference`. No JavaScript is involved.
 
-```css
-html {
-  view-transition-name: root;
-}
-
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.4s;
-}
-```
-
-And via the auto-injected meta tag + render-blocking script (see `vite.config.js` → `viewTransitions` plugin).
-
-### Customizing transition animations
-
-Override in `app.css` for global changes, or in a page-level `<style>` tag for per-page customization:
-
-```css
-/* Crossfade with blur — put in app.css or page <style> */
-::view-transition-old(root) {
-  animation: fade-out 0.3s ease, blur-out 0.3s ease;
-}
-::view-transition-new(root) {
-  animation: fade-in 0.3s ease, blur-in 0.3s ease;
-}
-
-@keyframes fade-out { to { opacity: 0; } }
-@keyframes fade-in { from { opacity: 0; } }
-@keyframes blur-out { to { filter: blur(4px); } }
-@keyframes blur-in { from { filter: blur(4px); } }
-```
-
-### Disabling transitions for a specific navigation
-
-Add `data-vt-skip` to the link:
+To animate one element between two pages, give it the same name on both, unique within each page:
 
 ```html
-<a href="/about" data-vt-skip>About (no transition)</a>
-```
-
-Or use CSS to exclude specific elements from capture:
-
-```css
-.no-transition {
-  view-transition-name: none;
-}
+<img style="view-transition-name: hero" ... />
 ```

@@ -1,21 +1,26 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Landlight</title>
-    <link rel="stylesheet" href="/app.css" />
-  </head>
-  <body class="bg-gray-50 text-gray-900 antialiased">
-    <include src="src/components/header.html"></include>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تواصل معنا | Landlight</title>
+  <meta name="description" content="تواصل مع فريق Landlight عبر البريد الإلكتروني أو الهاتف لبدء صفحة الهبوط الخاصة بنشاطك، ونرد عليك في أقرب وقت لنتفق معك على التفاصيل والموعد المناسب." />
+  <link rel="stylesheet" href="/app.css" />
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+  <include src="src/components/header.html"></include>
 
-    <main
-      x-data="{ count: 0 }"
-      class="max-w-6xl mx-auto px-4 py-16 text-center"
-    >
-      <h1>Hello World !</h1>
-    </main>
+  <main id="main" data-placeholder class="max-w-2xl mx-auto px-4 py-20 text-center">
+    <h1 class="text-3xl font-bold mb-6">تواصل معنا</h1>
+    <p class="text-lg leading-8 text-gray-700 mb-8">نسعد بسماعك. اختر الطريقة الأنسب لك.</p>
+    <div class="flex flex-col gap-3 items-center">
+      <a href="mailto:hello@example.com" class="inline-block py-2 text-brand underline">hello@example.com</a>
+      <a href="tel:+966500000000" dir="ltr" class="inline-block py-2 text-brand underline">+966 50 000 0000</a>
+    </div>
+  </main>
 
-    <script type="module" src="/app.js"></script>
-  </body>
+  <include src="src/components/footer.html"></include>
+
+  <script type="module" src="/app.js"></script>
+</body>
 </html>
