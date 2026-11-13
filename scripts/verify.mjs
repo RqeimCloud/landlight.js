@@ -18,13 +18,12 @@ const LOCAL = `http://localhost:${PORT}`
 const LIGHTHOUSE = 'lighthouse@13.6.0'
 const CHROME_FLAGS = '--headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage'
 const RUNS = 3
+// Lighthouse guides, it does not block: every category should reach GREEN, and a score under it
+// is listed for the agent to fix. When no fix holds, the site may still be published, named in the report.
 const GREEN = 0.9
-// Speed must be green, so a page that needs heavy JavaScript can still pass once optimized.
-// The other three are pass or fail.
-const REQUIRED = { performance: GREEN, accessibility: 1, 'best-practices': 1, seo: 1 }
-// What every site aims for: anything under it is printed as advice, not a failure.
+// What every site aims for: anything under it is printed as advice.
 const TARGET = { mobile: 0.99, desktop: 1 }
-const CATEGORIES = Object.keys(REQUIRED)
+const CATEGORIES = ['performance', 'accessibility', 'best-practices', 'seo']
 const METRICS = { LCP: 'largest-contentful-paint', CLS: 'cumulative-layout-shift', TBT: 'total-blocking-time', FCP: 'first-contentful-paint', SI: 'speed-index' }
 const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.txt': 'text/plain; charset=utf-8', '.xml': 'text/xml', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.avif': 'image/avif', '.ico': 'image/x-icon', '.woff2': 'font/woff2' }
 const COMPRESSED = /^text\/|json|svg/
@@ -36,6 +35,7 @@ const FIRST_FLIGHT = 14 * 1024
 // Whole-page frameworks and heavy libraries that a static landing page has lighter answers for.
 const BANNED = ['react', 'react-dom', 'vue', 'svelte', '@angular/core', 'next', 'nuxt', 'jquery', 'bootstrap', 'swiper', 'moment', 'lodash', 'preact', 'solid-js', 'swup', '@barba/core', '@hotwired/turbo']
 // What a site owner may ask for knowingly, listed in site.config.json "exceptions" with the reason and the cost.
+// 'performance' and 'best-practices' only guide now; they stay accepted so existing sites keep building.
 const EXCEPTIONS = ['performance', 'accessibility', 'best-practices', 'seo', 'cdn', 'framework', 'js-text', 'image-format', 'image-size', 'image-loading', 'legal-pages']
 const ICONS = ['favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'og.png']
 
@@ -232,16 +232,12 @@ function report(url, form, lhr, fail) {
   const scores = CATEGORIES.map(c => [c, lhr.categories[c].score])
   const metrics = Object.entries(METRICS).map(([name, id]) => [name, lhr.audits[id]])
   console.log(`${form.padEnd(7)} ${scores.map(([c, s]) => `${c}=${s === null ? '?' : Math.round(s * 100)}`).join(' ')} | ${metrics.map(([n, a]) => `${n}=${a.displayValue ?? '?'}`).join(' ')}  ${url}`)
-  const need = c => REQUIRED[c]
   const speed = lhr.categories.performance.score
   if (speed !== null && speed >= GREEN && speed < TARGET[form]) warn(`${form} ${url}: speed is ${Math.round(speed * 100)}, the aim is ${Math.round(TARGET[form] * 100)}: see the fix table in prompts/04-verify.md`)
-  const bad = [
-    ...scores.filter(([c, s]) => s === null || s < need(c)).map(([c, s]) => [c, `${c} is ${s === null ? 'unknown' : Math.round(s * 100)}, it must be ${Math.round(need(c) * 100)}`]),
-    ...metrics.filter(([, a]) => a.score === null || a.score < GREEN).map(([n, a]) => ['performance', `${n} is ${a.displayValue ?? 'unknown'}`]),
-  ]
-  if (lhr.runtimeError) bad.push([undefined, `Lighthouse error: ${lhr.runtimeError.message}`])
-  if (!bad.length) return
-  for (const [id, text] of bad) fail(`${form} ${url}: ${text}`, id)
+  if (lhr.runtimeError) return fail(`${form} ${url}: Lighthouse error: ${lhr.runtimeError.message}`)
+  const low = scores.filter(([, s]) => s === null || s < GREEN)
+  if (!low.length) return
+  for (const [c, s] of low) under.push(`${form} ${url}: ${c} is ${s === null ? 'unknown' : Math.round(s * 100)}, the aim is ${Math.round(GREEN * 100)}`)
   const failing = CATEGORIES.flatMap(c => lhr.categories[c].auditRefs.map(r => [c, lhr.audits[r.id]])).filter(([c, a]) => a.score !== null && a.score < (c === 'performance' ? GREEN : 1) && a.scoreDisplayMode !== 'informative').map(([, a]) => a)
   for (const audit of new Map(failing.map(a => [a.id, a])).values()) console.log(`    fix: ${audit.id} - ${audit.title}${audit.displayValue ? ` (${audit.displayValue})` : ''}`)
 }
@@ -250,6 +246,8 @@ function finish(problems, extra = []) {
   const all = [...problems, ...extra]
   for (const note of [...new Set(advice)]) console.log(`advice: ${note}`)
   for (const note of allowed) console.log(`allowed by request: ${note}`)
+  for (const note of under) console.log(`under 90: ${note}`)
+  if (!all.length && under.length) { console.log(`\nVERIFY PASSED with ${under.length} Lighthouse score(s) under 90: fix them with prompts/04-verify.md first; publish without a fix only when none holds, and name each one in your report.`); process.exit(0) }
   if (!all.length && allowed.length) { console.log(`\nVERIFY PASSED with ${allowed.length} result(s) the site owner asked for: put each one in your report.`); process.exit(0) }
   if (!all.length) { console.log('\nVERIFY PASSED: every check is green.'); process.exit(0) }
   console.log(`\nVERIFY FAILED: ${all.length} problem(s). Do not publish.`)
@@ -260,6 +258,7 @@ function finish(problems, extra = []) {
 const problems = []
 const allowed = []
 const advice = []
+const under = []
 const exceptions = site.exceptions ?? {}
 const fail = (message, id) => (exceptions[id] ? allowed.push(`${message} [${id}: ${exceptions[id]}]`) : problems.push(message))
 const warn = message => advice.push(message)

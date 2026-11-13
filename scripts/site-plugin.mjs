@@ -120,8 +120,8 @@ const structuredData = (url, route, locale, title, description) => {
     image: `${origin}/og.png`,
     logo: { '@type': 'ImageObject', url: `${origin}/icon-512.png`, width: 512, height: 512 },
     description: about,
-    email: site.email,
-    telephone: site.phone,
+    email: site.email || undefined,
+    telephone: site.phone || undefined,
     sameAs: site.sameAs,
     knowsLanguage: locales,
     ...businessFields(),
@@ -276,7 +276,8 @@ export const writeAgentFiles = () => {
   const pages = readdirSync(DIST, { recursive: true }).filter(f => f.endsWith('.html') && f !== NOT_INDEXED).sort()
   const { name, description } = site.locales[defaultLocale]
   const read = page => readFileSync(join(DIST, page), 'utf-8')
-  const summary = `# ${name}\n\n> ${description} Contact: ${site.email}, ${site.phone}.\n\n`
+  const contact = [site.email, site.phone].filter(Boolean).join(', ')
+  const summary = `# ${name}\n\n> ${description}${contact ? ` Contact: ${contact}.` : ''}\n\n`
   const entries = locale => pages.filter(page => localeOf(page) === locale).map(page => {
     const html = read(page)
     return `- [${plain(html.match(/<title>([^<]*)/)[1])}](${origin}${routeOf(page)}): ${plain(html.match(/name="description"\s+content="([^"]*)/)[1])}`
