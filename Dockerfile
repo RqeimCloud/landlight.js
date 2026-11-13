@@ -13,3 +13,6 @@ RUN sed -i 's/^worker_processes .*/worker_processes 1;/' /etc/nginx/nginx.conf \
 COPY nginx.conf /etc/nginx/conf.d/site.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
+# Rqeim Cloud swaps a deploy in only once the new site answers here: no downtime.
+HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget -q -O /dev/null http://127.0.0.1/ || exit 1
