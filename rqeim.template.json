@@ -8,5 +8,12 @@
   "appPort": 80,
   "defaultSize": "xs",
   "database": null,
-  "sanitizeSql": null
+  "sanitizeSql": null,
+  "version": 1,
+  "upgrades": [
+    {
+      "version": 1,
+      "notes": "Bring this site onto the current Landlight template **without changing how it looks or what it says**. Work in a copy, never in production.\n\n1. Fetch the template: `git remote add template https://github.com/RqeimCloud/landlight.js.git && git fetch template main`.\n2. Take these from `template/main` as they are: `scripts/`, `vite.config.js`, `Dockerfile`, `nginx.conf`, `.gitignore`, `src/app.js`, `src/alpine.js`, `src/webmcp.js`, `src/islands/`, `prompts/`, `.agent/`, `AGENTS.md`. Then merge `package.json`: keep the site's own extra dependencies, take the template's scripts and dependencies, and run `npm install` to rewrite `package-lock.json`. The lock must not contain `git+ssh`.\n3. Move every page to `src/views/<path>.html`. `src/pages/` is now generated and git-ignored: delete the old copy from git. A site in one language may keep its text in the views. A site in two or more languages has one view per page, its words in `src/locales/<locale>.json` with `{{t:key}}`, and one copy of each component using the same tokens. Read `.agent/PAGES.md` first.\n4. Merge `site.config.json` with the template's: keep every value of this site, add the new fields (`languages`, `exceptions: {}`).\n5. Images: put the originals in `media/`, run `npm run assets`, and use the WebP files it writes. Keep the same pictures.\n6. Run `npm run verify` until it ends in `VERIFY PASSED`. If a score cannot turn green without changing the design or the text, stop and ask the owner; record what they accept in `exceptions`.\n7. Compare the copy's preview with production at 375px and 1440px, page by page and language by language: same layout, same text, same links. Only then, with the owner's permission, publish it and record version 1."
+    }
+  ]
 }

@@ -4,3 +4,4 @@ src/pages
 .DS_Store
 *.local
 *.lock
+.verify

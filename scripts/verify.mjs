@@ -2,7 +2,7 @@
 //   npm run verify                       build, check every file, run Lighthouse locally
 //   npm run verify -- https://domain     check the published site over HTTP and with Lighthouse
 import { execFile, execFileSync } from 'node:child_process'
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { extname, join, resolve } from 'node:path'
 import { promisify } from 'node:util'
@@ -11,6 +11,8 @@ import { NOT_INDEXED, RTL, indexNowKey, localeOf, locales, pageIn, routeOf, site
 
 const exec = promisify(execFile)
 const DIST = resolve(import.meta.dirname, '../dist')
+// What Lighthouse saw, one image per page and form. Rewritten on every run, never committed or deployed.
+const SHOTS = resolve(import.meta.dirname, '../.verify')
 const PORT = 4173
 const LOCAL = `http://localhost:${PORT}`
 const LIGHTHOUSE = 'lighthouse@13.6.0'
@@ -214,7 +216,19 @@ async function lighthouse(url, desktop) {
   return reports.sort((a, b) => score(a) - score(b))[Math.floor(RUNS / 2)]
 }
 
+// The full page as Lighthouse rendered it (412px wide on mobile, 1350px on desktop), so the
+// agent can look for clipped text, overflow or a broken layout without a browser of its own.
+function saveShot(url, form, lhr) {
+  const data = lhr.audits['full-page-screenshot']?.details?.screenshot?.data ?? lhr.audits['final-screenshot']?.details?.data
+  const match = /^data:image\/(\w+);base64,(.+)$/.exec(data ?? '')
+  if (!match) return
+  const name = new URL(url).pathname.replace(/^\/|\/$/g, '').replace(/\//g, '-') || 'home'
+  mkdirSync(SHOTS, { recursive: true })
+  writeFileSync(join(SHOTS, `${name}-${form}.${match[1] === 'jpeg' ? 'jpg' : match[1]}`), Buffer.from(match[2], 'base64'))
+}
+
 function report(url, form, lhr, fail) {
+  saveShot(url, form, lhr)
   const scores = CATEGORIES.map(c => [c, lhr.categories[c].score])
   const metrics = Object.entries(METRICS).map(([name, id]) => [name, lhr.audits[id]])
   console.log(`${form.padEnd(7)} ${scores.map(([c, s]) => `${c}=${s === null ? '?' : Math.round(s * 100)}`).join(' ')} | ${metrics.map(([n, a]) => `${n}=${a.displayValue ?? '?'}`).join(' ')}  ${url}`)
@@ -251,6 +265,7 @@ const fail = (message, id) => (exceptions[id] ? allowed.push(`${message} [${id}:
 const warn = message => advice.push(message)
 for (const id of Object.keys(exceptions)) if (!EXCEPTIONS.includes(id)) fail(`site.config.json: "${id}" cannot be excepted, only: ${EXCEPTIONS.join(', ')}`)
 const live = process.argv[2]?.replace(/\/$/, '')
+rmSync(SHOTS, { recursive: true, force: true })
 let server
 let unreplaced = []
 

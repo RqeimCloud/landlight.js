@@ -4,7 +4,7 @@
 
 ```
 /
-├── src/                    # Vite root — processed and deployed to Cloudflare Pages
+├── src/                    # Vite root, built to dist/
 │   ├── app.css             # Global styles (Tailwind v4 + view transitions)
 │   ├── app.js              # Starts islands and Alpine only where a page uses them
 │   ├── alpine.js           # Alpine from npm (plugins: Collapse, Focus)
@@ -16,8 +16,6 @@
 │   ├── views/              # Each page written once, with {{t:key}} for its words
 │   ├── locales/            # <locale>.json: the words of every page in that language
 │   └── pages/              # Generated from views, one real page per language; git-ignored
-├── assets/                 # NOT processed by Vite — upload directly to Cloudflare R2
-│   └── images/             # Referenced via absolute CDN URLs
 ├── site.config.json        # The site's facts: URL, brand, languages, business
 ├── media/                  # Original logo and photos
 ├── scripts/assets.mjs      # media/ → icons and responsive webp images
@@ -25,6 +23,9 @@
 ├── scripts/verify.mjs      # Pre-publish gate: file checks + Lighthouse
 ├── prompts/                # Step-by-step instructions for building a page
 ├── vite.config.js          # Bundler config (MPA, Tailwind, includes, view transitions)
+├── Dockerfile              # How Rqeim Cloud builds and serves the site (see DEPLOYMENT.md)
+├── nginx.conf              # Caching, redirects and 404 for the built site
+├── rqeim.template.json     # How Rqeim Cloud lists and runs this template
 ├── package.json            # Dependencies and scripts
 └── .agent/                 # This folder — project documentation for agents/tools
 ```
@@ -45,9 +46,10 @@
 
 | Command | What it does |
 |---|---|
-| `bun dev` | Start dev server on `localhost:5173` |
-| `bun run build` | Production build to `dist/` |
-| `bun run preview` | Preview production build locally |
+| `npm run dev` | Start dev server on `localhost:5173` |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Preview production build locally |
+| `npm run assets` | `media/` → icons and responsive WebP images |
 | `npm run verify` | The gate: must end in `VERIFY PASSED` before publishing |
 
 ## Deviations

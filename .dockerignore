@@ -4,3 +4,4 @@ prompts
 media
 node_modules
 dist
+.verify

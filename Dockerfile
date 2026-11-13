@@ -1,7 +1,5 @@
 # Build: runs in Rqeim's build Job, never inside the site's machine.
 FROM node:24.22.1-alpine@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53 AS build
-# vite-plugin-html-include is a git dependency.
-RUN apk add --no-cache git
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
