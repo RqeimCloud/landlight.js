@@ -2,12 +2,12 @@
 
 ## التجهيز
 
-يلزم Node 22.19 فأعلى، وشبكة، وChrome أو Chromium:
+يلزم Bun (بدل Node) وشبكة وChrome أو Chromium. Bun غير موجود في نسخة التطوير افتراضيًا: ثبّته كما في [`00-start-here.md`](00-start-here.md).
 
 ```bash
-node -v && npm -v || apk add --no-cache nodejs npm
+bun -v
 which chromium chromium-browser google-chrome || (apk add --no-cache chromium || (apt-get update && apt-get install -y chromium))
-npm ci
+bun install --frozen-lockfile
 ```
 
 إن لم يُعثر على المتصفح فاضبط مساره: `export CHROME_PATH=/usr/bin/chromium`.
@@ -15,7 +15,7 @@ npm ci
 ## التشغيل
 
 ```bash
-npm run verify
+bun run verify
 ```
 
 يبني الموقع، ويفحص كل ملف، ثم يشغّل Lighthouse ثلاث مرات لكل صفحة على الجوال وثلاثًا على المكتب ويأخذ الوسيط. يستغرق نحو دقيقة ونصف لكل صفحة، فانتظره ولا تقطعه.
@@ -47,7 +47,7 @@ npm run verify
 
 1. اقرأ قائمة `VERIFY FAILED` وأسطر `fix:` كاملة.
 2. أصلح **كل** ما فيها حسب الجدول أدناه.
-3. أعد `npm run verify` من البداية، ولا تكتفِ بإعادة الجزء الذي فشل.
+3. أعد `bun run verify` من البداية، ولا تكتفِ بإعادة الجزء الذي فشل.
 4. كرر حتى ترى `VERIFY PASSED`. بعد 5 محاولات دون تقدم توقف وأرسل آخر ناتج لصاحب الطلب.
 
 | ما تراه | الإصلاح |
@@ -58,10 +58,10 @@ npm run verify
 | `total-blocking-time` أو `bootup-time` | انقل الكود إلى جزيرة، أو استبدله بما تعطيه المنصة |
 | `font-display-insight` | `font-display: swap` لكل `@font-face` |
 | `third-parties-insight` | حمّل الطرف الثالث عند الطلب فقط |
-| `image-delivery-insight` أو `image-size-responsive` | ضع أصلًا بعرض 1600px في `media/` وأعد `npm run assets`، واضبط `sizes` على عرض الصورة الفعلي |
+| `image-delivery-insight` أو `image-size-responsive` | ضع أصلًا بعرض 1600px في `media/` وأعد `bun run assets`، واضبط `sizes` على عرض الصورة الفعلي |
 | `dom-size-insight` | بسّط البنية وأزل الأغلفة الزائدة |
 | `remove ...` | استبدل المكتبة حسب `libraries.md`، أو سجّل استثناء `framework` إن طلبها صاحب الموقع |
-| `every image is webp` أو `must be webp` | ضع الأصل في `media/` وشغّل `npm run assets` واستخدم الوسم المطبوع |
+| `every image is webp` أو `must be webp` | ضع الأصل في `media/` وشغّل `bun run assets` واستخدم الوسم المطبوع |
 | `never loaded from a CDN` أو `fonts are served` | ثبّت من npm أو انسخ الخط إلى `src/public/fonts/` |
 | `no island file` | أنشئ الملف بالاسم نفسه في `src/islands/` |
 | `color-contrast` | غيّر اللون في `@theme` حتى 4.5:1، ولا تخفف الفحص |
@@ -77,7 +77,7 @@ npm run verify
 | `Pages are written in src/views/` أو `not per language folder` | الصفحات في `src/views/` مرة واحدة، لا في `src/pages/` ولا في مجلد لغة |
 | `is not written in` | اكتب نصوص الصفحة بلغة ملفها |
 | `almost no text in the HTML` | اكتب المحتوى في HTML نفسه |
-| `image over 250KB` أو مقاس أيقونة | أعد `npm run assets` |
+| `image over 250KB` أو مقاس أيقونة | أعد `bun run assets` |
 | `template content not replaced` | صمّم الصفحة واحذف `data-placeholder` |
 | `is still` | أكمل `site.config.json` |
 

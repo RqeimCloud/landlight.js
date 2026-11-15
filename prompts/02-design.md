@@ -104,7 +104,7 @@
 من المشروع نفسه، ولا تُحمّل من Google Fonts. ملفات الخط تجدها بعد التثبيت في `node_modules/@fontsource/<الاسم>/files/`:
 
 ```bash
-npm install --no-save @fontsource/tajawal
+bun add --no-save @fontsource/tajawal
 mkdir -p src/public/fonts
 cp node_modules/@fontsource/tajawal/files/tajawal-arabic-{400,700}-normal.woff2 src/public/fonts/
 ```
@@ -118,7 +118,7 @@ cp node_modules/@fontsource/tajawal/files/tajawal-arabic-{400,700}-normal.woff2 
 
 ## الصور: WebP فقط
 
-ضع كل الأصول في `media/` بأي صيغة (JPG أو PNG أو AVIF أو TIFF أو GIF أو SVG)، ثم شغّل `npm run assets`. يحوّل الأمر الصور إلى WebP بثلاثة عروض بأعلى ضغط ممكن، ويحسّن SVG، ويطبع وسم `<img>` جاهزًا لكل صورة. البوابة ترفض أي صورة غير WebP أو SVG، ما عدا الأيقونات وصورة المشاركة، فهذه تبقى PNG لأن بعض المنصات لا تقرأ WebP لها.
+ضع كل الأصول في `media/` بأي صيغة (JPG أو PNG أو AVIF أو TIFF أو GIF أو SVG)، ثم شغّل `bun run assets`. يحوّل الأمر الصور إلى WebP بثلاثة عروض بأعلى ضغط ممكن، ويحسّن SVG، ويطبع وسم `<img>` جاهزًا لكل صورة. البوابة ترفض أي صورة غير WebP أو SVG، ما عدا الأيقونات وصورة المشاركة، فهذه تبقى PNG لأن بعض المنصات لا تقرأ WebP لها.
 
 اضبط `sizes` على عرض الصورة الفعلي في التصميم، مثل `(min-width: 768px) 50vw, 100vw`، لا `100vw` دائمًا.
 

@@ -14,12 +14,12 @@ Rqeim Cloud runs every site made from this template. There is no other host, CDN
 
 | Stage | What it does |
 |---|---|
-| `build` | `node` image: `npm ci`, then `npm run build`. Output in `dist/`. |
+| `build` | `oven/bun` image: `bun install --frozen-lockfile`, then `bun run build`. Output in `dist/`. |
 | serve | `nginx` image with one worker, `nginx.conf`, and `dist/`. Nothing else. |
 
 Both images are pinned by digest. Keep them pinned: change the version and its digest together.
 
-`npm run build` regenerates `src/pages/` from `src/views/` and `src/locales/`, then writes `dist/`. Neither folder is committed.
+`bun run build` regenerates `src/pages/` from `src/views/` and `src/locales/`, then writes `dist/`. Neither folder is committed.
 
 ## Caching (`nginx.conf`)
 
@@ -30,7 +30,7 @@ Both images are pinned by digest. Keep them pinned: change the version and its d
 
 ## Images and files
 
-Everything ships from the repository. Put originals in `media/`, run `npm run assets`, and use what it writes to `src/images/` and `src/public/`. Do not link images, fonts or scripts from another host: `npm run verify` fails on it unless the owner asked for the `cdn` exception.
+Everything ships from the repository. Put originals in `media/`, run `bun run assets`, and use what it writes to `src/images/` and `src/public/`. Do not link images, fonts or scripts from another host: `bun run verify` fails on it unless the owner asked for the `cdn` exception.
 
 ## Environment variables
 
@@ -41,7 +41,7 @@ None. The site is static, and anything in the built files is public. Never put a
 In Rqeim Cloud, change a site in a copy of it, not in production:
 
 1. Create a copy. It has its own preview address.
-2. Edit, run `npm run verify`, and look at the preview.
+2. Edit, run `bun run verify`, and look at the preview.
 3. With the owner's permission, publish the copy. Its commit is pushed to the default branch and deployed as above.
 
 ## Domain

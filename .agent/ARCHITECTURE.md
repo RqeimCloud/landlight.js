@@ -10,7 +10,7 @@
 │   ├── alpine.js           # Alpine from npm (plugins: Collapse, Focus)
 │   ├── webmcp.js           # WebMCP tools, loaded only by browsers that support it
 │   ├── public/             # Served as-is from the site root (icons, og.png, llms.txt)
-│   ├── images/             # Generated from media/ by npm run assets
+│   ├── images/             # Generated from media/ by bun run assets
 │   ├── islands/            # JavaScript that runs only where a page asks for it
 │   ├── components/         # Header, footer and other partials, one copy for every language
 │   ├── views/              # Each page written once, with {{t:key}} for its words
@@ -46,12 +46,12 @@
 
 | Command | What it does |
 |---|---|
-| `npm run dev` | Start dev server on `localhost:5173` |
-| `npm run build` | Production build to `dist/` |
-| `npm run preview` | Preview production build locally |
-| `npm run assets` | `media/` → icons and responsive WebP images |
-| `npm run verify` | The gate: must end in `VERIFY PASSED` before publishing |
+| `bun run dev` | Start dev server on `localhost:5173` |
+| `bun run build` | Production build to `dist/` |
+| `bun run preview` | Preview production build locally |
+| `bun run assets` | `media/` → icons and responsive WebP images |
+| `bun run verify` | The gate: must end in `VERIFY PASSED` before publishing |
 
 ## Deviations
 
-- انحراف: لا تحسين بلا قياس — تضمين CSS (سقف 50KB) وعتبة Lighthouse (90 توجيهًا لا شرطًا، 99/100 هدفًا) وأرقام النصائح (JavaScript 10KB و120KB، وHTML 14KB) بلا رقم قبل/بعد لأن التشغيل المحلي لا يُجرى إلا بطلب صريح — يزيله أول `npm run verify` وتثبيت الأرقام المقاسة.
+- انحراف: لا تحسين بلا قياس — تضمين CSS (سقف 50KB) وعتبة Lighthouse (90 توجيهًا لا شرطًا، 99/100 هدفًا) وأرقام النصائح (JavaScript 10KB و120KB، وHTML 14KB) بلا رقم قبل/بعد لأن التشغيل المحلي لا يُجرى إلا بطلب صريح — يزيله أول `bun run verify` وتثبيت الأرقام المقاسة.

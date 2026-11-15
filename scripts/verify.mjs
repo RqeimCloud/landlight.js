@@ -1,6 +1,6 @@
 // The gate before publishing. Nothing is published unless this ends with VERIFY PASSED.
-//   npm run verify                       build, check every file, run Lighthouse locally
-//   npm run verify -- https://domain     check the published site over HTTP and with Lighthouse
+//   bun run verify                       build, check every file, run Lighthouse locally
+//   bun run verify -- https://domain     check the published site over HTTP and with Lighthouse
 import { execFile, execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { createServer } from 'node:http'
@@ -102,7 +102,7 @@ function checkPage(page, html, seen, fail) {
     const src = attr(img, 'src') ?? ''
     if (attr(img, 'alt') === undefined) say(`image without alt: ${src}`, 'accessibility')
     if (!attr(img, 'width') || !attr(img, 'height')) say(`image without width and height: ${src}`)
-    if (!/\.(webp|svg)(\?|$)/i.test(src)) say(`image must be webp or svg: put the original in media/ and run npm run assets: ${src}`, 'image-format')
+    if (!/\.(webp|svg)(\?|$)/i.test(src)) say(`image must be webp or svg: put the original in media/ and run bun run assets: ${src}`, 'image-format')
     if (src.startsWith('/') && !isFile(join(DIST, src))) say(`missing image: ${src}`)
     else if (src.startsWith('/') && statSync(join(DIST, src)).size > 250 * 1024) say(`image over 250KB: ${src}`, 'image-size')
   }
@@ -143,7 +143,7 @@ function checkFiles(pages, fail) {
   for (const name of BANNED) if (dependencies?.[name] || devDependencies?.[name]) fail(`remove ${name}: see prompts/libraries.md for the lighter choice`, 'framework')
   if (assets.some(f => /navigator\.languages?\b/.test(readFileSync(join(DIST, f), 'utf-8')))) fail('JavaScript reads the browser language: never redirect or swap text by language', 'js-text')
   const raster = readdirSync(DIST, { recursive: true }).filter(f => /\.(jpe?g|png|gif|bmp|tiff?|avif)$/i.test(f) && !ICONS.includes(f))
-  for (const file of raster) fail(`${file}: every image is webp: put the original in media/ and run npm run assets`, 'image-format')
+  for (const file of raster) fail(`${file}: every image is webp: put the original in media/ and run bun run assets`, 'image-format')
   const absent = ['favicon.ico', ...ICONS, 'robots.txt', 'sitemap.xml', 'llms.txt', 'llms-full.txt', 'site.webmanifest', 'sw.js', `${indexNowKey}.txt`, NOT_INDEXED].filter(file => !isFile(join(DIST, file)))
   if (absent.length) return fail(`missing from the site: ${absent.join(', ')}`)
   for (const [file, w, h] of [['og.png', 1200, 630], ['apple-touch-icon.png', 180, 180], ['favicon-32.png', 32, 32], ['icon-192.png', 192, 192], ['icon-512.png', 512, 512], ['icon-maskable-512.png', 512, 512]]) {
@@ -209,9 +209,9 @@ async function checkHttp(base, fail) {
 }
 
 async function lighthouse(url, desktop) {
-  const args = ['--yes', LIGHTHOUSE, url, '--quiet', '--output=json', '--output-path=stdout', `--only-categories=${CATEGORIES.join(',')}`, `--chrome-flags=${CHROME_FLAGS}`, ...(desktop ? ['--preset=desktop'] : [])]
+  const args = [LIGHTHOUSE, url, '--quiet', '--output=json', '--output-path=stdout', `--only-categories=${CATEGORIES.join(',')}`, `--chrome-flags=${CHROME_FLAGS}`, ...(desktop ? ['--preset=desktop'] : [])]
   const reports = []
-  for (let i = 0; i < RUNS; i++) reports.push(JSON.parse((await exec('npx', args, { maxBuffer: 512 * 1024 * 1024 })).stdout))
+  for (let i = 0; i < RUNS; i++) reports.push(JSON.parse((await exec('bunx', args, { maxBuffer: 512 * 1024 * 1024 })).stdout))
   const score = lhr => lhr.categories.performance.score ?? -1
   return reports.sort((a, b) => score(a) - score(b))[Math.floor(RUNS / 2)]
 }
@@ -270,7 +270,7 @@ let unreplaced = []
 
 if (!live) {
   try {
-    execFileSync('npx', ['vite', 'build'], { stdio: 'inherit', env: { ...process.env, SITE_URL: LOCAL } })
+    execFileSync('bunx', ['vite', 'build'], { stdio: 'inherit', env: { ...process.env, SITE_URL: LOCAL } })
   } catch {
     finish(['the build failed: fix the errors printed above'])
   }
@@ -291,7 +291,7 @@ try {
   }
 } catch (error) {
   fail(`could not run the checks: ${String(error.stderr || error.message).trim().slice(-600)}`)
-  console.log('Lighthouse needs Node 22.19+, network access for npx, and Chrome or Chromium (set CHROME_PATH if it is not found).')
+  console.log('Lighthouse needs Bun 1.4+, network access for bunx, and Chrome or Chromium (set CHROME_PATH if it is not found).')
 }
 server?.close()
 finish(problems, unreplaced)

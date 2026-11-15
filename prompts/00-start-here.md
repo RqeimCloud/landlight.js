@@ -13,10 +13,12 @@
 | `src/components/`: الهيدر والفوتر وأي جزء مكرر، نسخة واحدة لكل اللغات | JSON-LD الأساسي: المنشأة والموقع والصفحة والمسار |
 | `src/app.css`: نظام التصميم في `@theme` | `robots.txt` و`sitemap.xml` |
 | `src/islands/*.js`: التفاعل الذي لا تكفيه المنصة | `llms.txt` و`llms-full.txt` |
-| `src/public/fonts/` و`media/` | المانيفست و`sw.js` وكل مقاسات الأيقونات (بأمر `npm run assets`) |
+| `src/public/fonts/` و`media/` | المانيفست و`sw.js` وكل مقاسات الأيقونات (بأمر `bun run assets`) |
 | `site.config.json`: حقائق النشاط | ضغط CSS وتضمينه داخل الصفحة وبصمات الملفات |
 
 لا تعدّل `scripts/` ولا `vite.config.js` ولا `nginx.conf` ولا `src/app.js`. هذه الملفات هي ضمانات الأداء.
+
+**الأدوات تعمل بـBun لا Node.** نسخة التطوير تشغّل صورة الإنتاج (nginx على Alpine 3.24، بلا Node ولا Bun، ولا حزمة `bun` في مستودعات Alpine)، فثبّته أول مرة في النسخة بهذا الأمر (الأمر `export` يبقى في جلسة الطرفية): `apk add --no-cache bash curl unzip libgcc libstdc++ && curl -fsSL https://bun.sh/install | bash -s bun-v1.4.0 && export PATH="$HOME/.bun/bin:$PATH"`، ثم `bun install --frozen-lockfile`.
 
 ## الخطوات
 

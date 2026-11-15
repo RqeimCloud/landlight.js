@@ -25,7 +25,7 @@ src/views/404.html      →  /404.html, first locale only
 - A text value may contain HTML, such as `<strong>`.
 - Inside an attribute, quotes in the value are escaped for you. Inside `<script type="application/ld+json">`, the value is JSON-escaped.
 - A missing key stops the build and names the key. With more than one language, every locale file must have the same keys.
-- `npm run verify` fails a page whose text is the same in two languages.
+- `bun run verify` fails a page whose text is the same in two languages.
 
 ## Page template
 

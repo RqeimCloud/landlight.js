@@ -1,4 +1,4 @@
-// npm run assets: turns what is in media/ into everything the site needs.
+// bun run assets: turns what is in media/ into everything the site needs.
 //   media/logo.svg (or .png/.webp/.jpg, square, 512px or larger) → every icon and the share image
 //   media/<name>.jpg|png|webp|avif|tiff|gif → src/images/<name>-<width>.webp, and the <img> to paste
 //   media/<name>.svg → src/images/<name>.svg, optimized

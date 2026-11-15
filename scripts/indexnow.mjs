@@ -1,4 +1,4 @@
-// npm run indexnow: tell search engines that use IndexNow what changed. Run after publishing.
+// bun run indexnow: tell search engines that use IndexNow what changed. Run after publishing.
 import { indexNowKey, site } from './site-plugin.mjs'
 
 const sitemap = await (await fetch(`${site.url}/sitemap.xml`)).text()
