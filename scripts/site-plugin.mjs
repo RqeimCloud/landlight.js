@@ -79,6 +79,9 @@ const fill = (html, locale) => {
     .replaceAll('{{lang}}', locale)
     .replaceAll('{{dir}}', RTL.includes(locale) ? 'rtl' : 'ltr')
     .replace(/\{\{href:([\w/-]+)\}\}/g, (_, name) => routeOf(pageIn(`${name}.html`, locale)))
+    .replaceAll('{{email}}', site.email ?? '')
+    .replaceAll('{{phone}}', site.phone ?? '')
+    .replaceAll('{{tel}}', (site.phone ?? '').replace(/[^\d+]/g, ''))
 }
 
 // Titles reach this file HTML-escaped; JSON and plain text want the words themselves.
@@ -94,7 +97,8 @@ const ICONS = `<link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="${site.brand.theme}">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="${site.brand.themeLight ?? site.brand.theme}">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="${site.brand.theme}">
   <script type="speculationrules">{"prerender":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>`
 
 const businessFields = () => {

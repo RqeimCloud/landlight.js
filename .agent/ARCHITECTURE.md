@@ -9,10 +9,10 @@
 │   ├── app.js              # Starts islands and Alpine only where a page uses them
 │   ├── alpine.js           # Alpine from npm (plugins: Collapse, Focus)
 │   ├── webmcp.js           # WebMCP tools, loaded only by browsers that support it
-│   ├── public/             # Served as-is from the site root (icons, og.png, llms.txt)
+│   ├── public/             # Served as-is from the site root (icons, og.png, llms.txt, fonts/)
 │   ├── images/             # Generated from media/ by bun run assets
 │   ├── islands/            # JavaScript that runs only where a page asks for it
-│   ├── components/         # Header, footer and other partials, one copy for every language
+│   ├── components/         # Header, footer, theme script and other partials, one copy for every language
 │   ├── views/              # Each page written once, with {{t:key}} for its words
 │   ├── locales/            # <locale>.json: the words of every page in that language
 │   └── pages/              # Generated from views, one real page per language; git-ignored
@@ -36,6 +36,7 @@
 - **`appType: 'mpa'`** — multi-page mode. Every generated `src/pages/**.html` is an entry point.
 - **`base: '/'`** — all asset paths are root-relative (`/app.css`, `/app.js`), works at any nesting depth.
 - **No legacy Tailwind config** — Tailwind v4 is `@import "tailwindcss"` in `app.css`, processed by `@tailwindcss/vite`.
+- **One design, two themes** — every colour is a `light-dark()` token in `app.css`; `color-scheme` on `<html>` picks the side, `components/theme.html` applies a stored choice before paint. See `STYLING.md`.
 - **HTML includes resolve from project root** — `<include src="src/components/header.html">` always works.
 - **i18n by static generation** — `renderPages()` in `scripts/site-plugin.mjs` copies each view per language and `seo()` fills it, so every language is a real indexed page. See `PAGES.md`.
 - **MPA, static, minimal JS** — every page is complete HTML and CSS; `src/app.js` starts islands only where asked.

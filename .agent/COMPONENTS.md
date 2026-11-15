@@ -12,6 +12,16 @@ Paths are always relative to the **project root** (the directory containing `vit
 
 A partial is inserted as it is (`<slot>` is not supported). Its words are `{{t:key}}` tokens, so one copy serves every language: see `PAGES.md`.
 
+The template ships three:
+
+| Partial | What it does | Needs |
+|---|---|---|
+| `header.html` | Skip link, logo, navigation, language switch, theme toggle, mobile menu | `popover` (platform), `src/app.js` |
+| `footer.html` | Brand, links, legal links, email | nothing |
+| `theme.html` | Applies the stored light/dark choice before paint, adds `html.js` | must sit in `<head>` of every page |
+
+The mobile menu is a `popover` and the sticky header frosts itself with a scroll-driven CSS animation: neither needs Alpine. A page that wants state adds `x-data` and only then downloads Alpine.
+
 ## Alpine.js components
 
 Use Alpine on any page or component that needs state; pages without `x-data` do not download it:

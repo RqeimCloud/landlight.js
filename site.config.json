@@ -1,19 +1,23 @@
 {
-  "url": "https://example.com",
-  "email": "hello@example.com",
-  "phone": "+966500000000",
+  "url": "https://app-5wtohdghdfgh-prod.rqeim.dev",
+  "email": "contact@rqeim.com",
+  "phone": "+966510095363",
   "sameAs": [],
-  "brand": { "theme": "#1d4ed8", "background": "#ffffff" },
+  "brand": {
+    "theme": "#0a0a0b",
+    "themeLight": "#faf6ee",
+    "background": "#0a0a0b"
+  },
   "locales": {
     "ar": {
       "og": "ar_SA",
-      "name": "Landlight",
-      "description": "صفحات هبوط خفيفة وسريعة تظهر في محركات البحث ويفهمها وكلاء الذكاء الاصطناعي."
+      "name": "لاندلايت",
+      "description": "قالب صفحات هبوط ثابت يُبنى بـHTML وTailwind: سريع، وصولي، ويُخرج صفحة حقيقية لكل لغة."
     },
     "en": {
       "og": "en_US",
-      "name": "Landlight",
-      "description": "Light, fast landing pages that rank in search and that AI agents can read."
+      "name": "Landlight.js",
+      "description": "A static landing page template built with HTML and Tailwind: fast, accessible, one real page per language."
     }
   },
   "business": null,

@@ -1,7 +1,43 @@
-<footer class="border-t border-gray-200 bg-white">
-  <nav class="max-w-6xl mx-auto px-4 py-6 flex flex-wrap gap-x-6 text-sm" aria-label="{{t:ui.footerNav}}">
-    <a href="{{href:contact}}" class="inline-block py-2 text-gray-700 hover:text-gray-900">{{t:nav.contact}}</a>
-    <a href="{{href:privacy}}" class="inline-block py-2 text-gray-700 hover:text-gray-900">{{t:footer.privacy}}</a>
-    <a href="{{href:terms}}" class="inline-block py-2 text-gray-700 hover:text-gray-900">{{t:footer.terms}}</a>
-  </nav>
+<footer class="relative border-t border-line bg-paper-deep">
+  <div class="mx-auto max-w-6xl px-5 py-14">
+    <div class="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+      <div class="max-w-xs">
+        <a href="{{href:index}}" class="flex items-center gap-3">
+          <span class="relative grid h-9 w-9 place-items-center rounded-xl bg-paper shadow-[inset_0_0_0_1px_var(--gold),0_8px_24px_-12px_var(--gold-deep)]">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="bolt-footer" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="var(--gold-light)" />
+                  <stop offset="1" stop-color="var(--gold-deep)" />
+                </linearGradient>
+              </defs>
+              <path d="M13 2 4.5 13.2h6L10.2 22 19.5 10.4h-6.1L13 2Z" fill="url(#bolt-footer)" />
+            </svg>
+          </span>
+          <span class="font-display text-[19px] text-ink">{{t:brand.name}}</span>
+        </a>
+        <p class="mt-5 text-sm leading-relaxed text-muted">{{t:brand.tagline}}</p>
+        <p class="mt-4 text-sm">
+          <a href="mailto:{{email}}" class="text-ink-soft underline underline-offset-4 transition-colors hover:text-gold-ink" dir="ltr">{{email}}</a>
+        </p>
+      </div>
+
+      <nav class="grid grid-cols-2 gap-x-14 gap-y-3 text-sm sm:gap-x-20" aria-label="{{t:ui.footerNav}}">
+        <a href="{{href:index}}#features" class="text-ink-soft transition-colors hover:text-gold-ink">{{t:nav.features}}</a>
+        <a href="{{href:index}}#how" class="text-ink-soft transition-colors hover:text-gold-ink">{{t:nav.how}}</a>
+        <a href="{{href:contact}}" class="text-ink-soft transition-colors hover:text-gold-ink">{{t:nav.contact}}</a>
+        <a href="{{href:privacy}}" class="text-ink-soft transition-colors hover:text-gold-ink">{{t:footer.privacy}}</a>
+        <a href="{{href:terms}}" class="text-ink-soft transition-colors hover:text-gold-ink">{{t:footer.terms}}</a>
+      </nav>
+    </div>
+
+    <div class="ornament mt-12" aria-hidden="true">
+      <svg class="h-2.5 w-2.5" viewBox="0 0 10 10"><path d="M5 0 10 5 5 10 0 5Z" fill="currentColor" /></svg>
+    </div>
+
+    <div class="mt-6 flex flex-col gap-2 text-[11px] text-muted sm:flex-row sm:items-center sm:justify-between">
+      <p class="mono uppercase tracking-[0.24em] text-gold-ink/70">{{t:brand.mono}}</p>
+      <p>{{t:footer.note}}</p>
+    </div>
+  </div>
 </footer>

@@ -21,6 +21,8 @@ src/views/404.html      →  /404.html, first locale only
 | `{{lang}}` / `{{dir}}` | `ar` / `rtl`, `en` / `ltr`… |
 | `{{href:contact}}` | `/contact` on an Arabic page, `/en/contact` on an English one. Use `{{href:index}}` for home. |
 | `{{locale:en}}` | This same page in English: the language switch. |
+| `{{email}}` / `{{phone}}` | `site.config.json`'s email and phone, for `mailto:` and `tel:` |
+| `{{tel}}` | The phone with spaces and dashes removed, for the link |
 
 - A text value may contain HTML, such as `<strong>`.
 - Inside an attribute, quotes in the value are escaped for you. Inside `<script type="application/ld+json">`, the value is JSON-escaped.

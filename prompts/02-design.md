@@ -101,7 +101,7 @@
 
 ## الخطوط
 
-من المشروع نفسه، ولا تُحمّل من Google Fonts. ملفات الخط تجدها بعد التثبيت في `node_modules/@fontsource/<الاسم>/files/`:
+من المشروع نفسه، ولا تُحمّل من Google Fonts. القالب يشحن خطوطه في `src/public/fonts/` مع `@font-face` في `src/app.css`، فتغيير خط واحد يعني: انسخ الملف ثم عدّل تعريفه هناك.
 
 ```bash
 bun add --no-save @fontsource/tajawal
@@ -110,11 +110,18 @@ cp node_modules/@fontsource/tajawal/files/tajawal-arabic-{400,700}-normal.woff2 
 ```
 
 ```css
-@font-face { font-family: "Tajawal"; src: url("/fonts/tajawal-arabic-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@theme { --font-sans: "Tajawal", system-ui, sans-serif; }
+@font-face { font-family: "Tajawal"; src: url("/fonts/tajawal-arabic-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFC; }
+@theme inline { --font-sans: "Tajawal", system-ui, sans-serif; }
 ```
 
-الأرقام اللاتينية في ملف `latin` منفصل، فانسخه أيضًا إن كانت الصفحة تعرضها.
+- العربية والأرقام اللاتينية في ملفين (`arabic` و`latin`)، ولكل ملف `unicode-range` من CSS الحزمة نفسه: انسخهما معًا وإلا ظهرت الأرقام بخط بديل.
+- الحرف الذي يقرأه الزائر أولًا (`font-display: swap`)، والعنوان الأكبر في الشاشة الأولى بـ`optional` كي لا يُزاح التخطيط بعد الرسم.
+
+## الوضعان: فاتح وداكن
+
+القالب يعرّف كل لون مرة واحدة بـ`light-dark()` في `src/app.css`، و`color-scheme` على `<html>` يختار الجهة، و`src/components/theme.html` يطبّق اختيار الزائر قبل الرسم. أي لون جديد يُضاف كرمز في الطبقتين، لا كصنف `dark:bg-…` في الصفحة، فيبقى يعمل بلا JavaScript.
+
+**الذهبي في هذا التصميم ليس لون نص:** على الورق الفاتح تباينه 3.4:1. للنص `text-gold-ink`، وللحدود والأزرار والتوهّج `--gold`. والتفاصيل في [`../.agent/STYLING.md`](../.agent/STYLING.md).
 
 ## الصور: WebP فقط
 
