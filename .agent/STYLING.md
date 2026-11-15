@@ -59,7 +59,7 @@ Self-hosted from `src/public/fonts/` (a font from a CDN fails `bun run verify`):
 
 `@layer components` in `src/app.css`, so a page reads as content:
 
-`.eyebrow` (small label with gold rules), `.text-gold-grad` (gold sheen on one word), `.btn-gold`, `.btn-ghost`, `.card-lux` (gradient hairline border), `.icon-ring`, `.ornament` (rule, diamond, rule), `.code-chip`, `.field`, `.label`, `.nav-link`, `.site-header`, `.site-menu`, `.skip-link`, `.reveal`.
+`.page-shell` / `.page-title` / `.page-lead` (one page skeleton for every page but the landing hero), `.eyebrow` (small label with gold rules), `.text-gold-grad` (gold sheen on one word), `.btn-gold`, `.btn-ghost`, `.card-lux` (gradient hairline border), `.icon-ring`, `.ornament` (rule, diamond, rule), `.code-chip`, `.field`, `.label`, `.nav-link`, `.site-header`, `.site-menu`, `.skip-link`, `.reveal`.
 
 Arabic gets `letter-spacing: 0` and no uppercase in `.eyebrow` automatically.
 

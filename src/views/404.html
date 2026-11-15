@@ -12,15 +12,16 @@
   <include src="src/components/header.html"></include>
 
   <main id="main" class="relative">
-    <div class="pointer-events-none absolute inset-0 -z-10 glow-hero" aria-hidden="true"></div>
-    <div class="mx-auto max-w-2xl px-5 py-24 text-center md:py-32">
-      <p class="eyebrow is-centered mono">{{t:notFound.eyebrow}}</p>
-      <h1 class="font-display mt-6 text-[clamp(2.2rem,5vw,3.5rem)] leading-[1.25] text-ink">{{t:notFound.heading}}</h1>
-      <p class="mt-5 text-base leading-[1.9] text-ink-soft">{{t:notFound.text}}</p>
-      <p lang="en" dir="ltr" class="mt-2 text-base leading-[1.9] text-muted">This page does not exist.</p>
-      <a href="{{href:index}}" class="btn-gold mt-10">{{t:notFound.home}}</a>
-    </div>
-  </main>
+  <include src="src/components/backdrop.html"></include>
+
+  <div class="page-shell is-centered">
+    <p class="eyebrow is-centered mono">{{t:notFound.eyebrow}}</p>
+    <h1 class="page-title">{{t:notFound.heading}}</h1>
+    <p class="page-lead">{{t:notFound.text}}</p>
+    <p lang="en" dir="ltr" class="mt-2 text-base leading-[1.9] text-muted">This page does not exist.</p>
+    <a href="{{href:index}}" class="btn-gold mt-10">{{t:notFound.home}}</a>
+  </div>
+</main>
 
   <include src="src/components/footer.html"></include>
 

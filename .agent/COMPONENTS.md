@@ -12,13 +12,16 @@ Paths are always relative to the **project root** (the directory containing `vit
 
 A partial is inserted as it is (`<slot>` is not supported). Its words are `{{t:key}}` tokens, so one copy serves every language: see `PAGES.md`.
 
-The template ships three:
+The template ships four:
 
 | Partial | What it does | Needs |
 |---|---|---|
 | `header.html` | Skip link, logo, navigation, language switch, theme toggle, mobile menu | `popover` (platform), `src/app.js` |
 | `footer.html` | Brand, links, legal links, email | nothing |
 | `theme.html` | Applies the stored light/dark choice before paint, adds `html.js` | must sit in `<head>` of every page |
+| `backdrop.html` | The gold glow, the grid and the fade every page starts with | first thing inside `<main class="relative">` |
+
+Every page opens with the same chrome: `<main id="main" class="relative">` holds `backdrop.html`, then a `.page-shell` with `.eyebrow`, `.page-title` and `.page-lead`. The landing page keeps its larger hero, and `404` uses the same shell with `is-centered`; change the shell in `src/app.css`, never per page.
 
 The mobile menu is a `popover` and the sticky header frosts itself with a scroll-driven CSS animation: neither needs Alpine. A page that wants state adds `x-data` and only then downloads Alpine.
 

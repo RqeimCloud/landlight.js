@@ -514,6 +514,59 @@ html.dark { color-scheme: dark; }
     color: var(--muted);
   }
 
+  /* ==== هيكل الصفحة: كل صفحة تبدأ من هنا، فهو واحد في كل الصفحات ==== */
+  .page-shell {
+    position: relative;
+    margin-inline: auto;
+    max-width: 48rem;
+    padding-inline: 1.25rem;
+    padding-block: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    .page-shell {
+      padding-block: 7rem;
+    }
+  }
+
+  .page-title {
+    font-family: var(--face-display);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5vw, 3.5rem);
+    line-height: 1.28;
+    letter-spacing: 0;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  html[lang="en"] .page-title {
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .page-lead {
+    margin-top: 1.5rem;
+    max-width: 42rem;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--ink-soft);
+  }
+
+  @media (min-width: 768px) {
+    .page-lead {
+      font-size: 1.0625rem;
+    }
+  }
+
+  /* عنوان صفحة قصيرة في وسط الشاشة (404) */
+  .page-shell.is-centered {
+    text-align: center;
+  }
+
+  .page-shell.is-centered .page-lead {
+    margin-inline: auto;
+  }
+
   /* ==== الخلفيات الزخرفية (رموز، فتعمل في الوضعين) ==== */
   .glow-hero {
     background: radial-gradient(60% 55% at 50% 0%, rgb(var(--glow) / 0.18), transparent 70%);

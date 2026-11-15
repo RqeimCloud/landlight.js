@@ -108,8 +108,8 @@
     "heading": "Tell us about your page",
     "note": "We usually answer within one working day. No marketing mail, and your details are never shared with a third party.",
     "phoneLabel": "Phone and WhatsApp",
-    "text": "Tell us what you do, who you serve and what the visitor should do, and we send a first draft of the page before any commitment.",
-    "title": "Contact | Landlight"
+    "title": "Contact | Landlight",
+    "lead": "Tell us what you do, who you serve and what the visitor should do, and we send a first draft of the page before any commitment."
   },
   "privacy": {
     "contactHeading": "Contact and corrections",
@@ -121,7 +121,8 @@
     "title": "Privacy policy | Landlight",
     "updated": "Last updated: November 2026",
     "useHeading": "How we use it",
-    "useText": "What you send is used to answer you and to deliver what we agree on, never for marketing and never sold. Visit statistics, if enabled, carry no personal identifiers."
+    "useText": "What you send is used to answer you and to deliver what we agree on, never for marketing and never sold. Visit statistics, if enabled, carry no personal identifiers.",
+    "lead": "We collect as little as possible, and we say exactly what that is."
   },
   "terms": {
     "contactHeading": "Questions",
@@ -133,7 +134,8 @@
     "title": "Terms and conditions | Landlight",
     "updated": "Last updated: November 2026",
     "useHeading": "Ownership and liability",
-    "useText": "The Landlight name and marks belong to their owners, and the published templates are released under the MIT licence. We are not liable for a decision you take on this site's content alone."
+    "useText": "The Landlight name and marks belong to their owners, and the published templates are released under the MIT licence. We are not liable for a decision you take on this site's content alone.",
+    "lead": "Clear terms for using this site, with no vague clauses."
   },
   "notFound": {
     "eyebrow": "Error 404",
