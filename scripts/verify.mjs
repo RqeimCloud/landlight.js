@@ -291,7 +291,7 @@ try {
   }
 } catch (error) {
   fail(`could not run the checks: ${String(error.stderr || error.message).trim().slice(-600)}`)
-  console.log('Lighthouse needs Bun 1.4+, network access for bunx, and Chrome or Chromium (set CHROME_PATH if it is not found).')
+  console.log('Lighthouse needs Bun, Node, network access for bunx, and Chrome or Chromium: in a Rqeim copy run sh scripts/setup-copy.sh (set CHROME_PATH if Chrome is elsewhere).')
 }
 server?.close()
 finish(problems, unreplaced)
