@@ -25,7 +25,6 @@
 ├── vite.config.js          # Bundler config (MPA, Tailwind, includes, view transitions)
 ├── Dockerfile              # How Rqeim Cloud builds and serves the site (see DEPLOYMENT.md)
 ├── nginx.conf              # Caching, redirects and 404 for the built site
-├── rqeim.template.json     # How Rqeim Cloud lists and runs this template
 ├── package.json            # Dependencies and scripts
 └── .agent/                 # This folder — project documentation for agents/tools
 ```

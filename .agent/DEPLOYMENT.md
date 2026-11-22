@@ -8,7 +8,7 @@ Rqeim Cloud runs every site made from this template. There is no other host, CDN
 2. Rqeim Cloud builds the repository's own `Dockerfile` in an isolated build machine.
 3. The new version replaces the old one only after it answers on port 80. If the build fails, the current site keeps running and the build log says why.
 
-`rqeim.template.json` has `"compose": true`. In Rqeim Cloud this means "run the repository's own files": a `compose.yaml` if there is one, otherwise the root `Dockerfile`. This template has no compose file, so the `Dockerfile` is what runs. Do not add a compose file.
+Rqeim Cloud runs the repository's own files: a `compose.yaml` if there is one, otherwise the root `Dockerfile`. This template has no compose file, so the `Dockerfile` is what runs. Do not add a compose file.
 
 ## The Dockerfile
 
