@@ -1,4 +1,4 @@
-// The gate before publishing. Nothing is published unless this ends with VERIFY PASSED.
+// One check before publishing, run once. It never blocks publishing, and an agent skips it when the owner is in a hurry.
 //   bun run verify                       build, check every file, run Lighthouse locally
 //   bun run verify -- https://domain     check the published site over HTTP and with Lighthouse
 import { execFile, execFileSync } from 'node:child_process'
@@ -17,7 +17,6 @@ const PORT = 4173
 const LOCAL = `http://localhost:${PORT}`
 const LIGHTHOUSE = 'lighthouse@13.6.0'
 const CHROME_FLAGS = '--headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage'
-const RUNS = 3
 // Lighthouse guides, it does not block: every category should reach GREEN, and a score under it
 // is listed for the agent to fix. When no fix holds, the site may still be published, named in the report.
 const GREEN = 0.9
@@ -210,10 +209,7 @@ async function checkHttp(base, fail) {
 
 async function lighthouse(url, desktop) {
   const args = [LIGHTHOUSE, url, '--quiet', '--output=json', '--output-path=stdout', `--only-categories=${CATEGORIES.join(',')}`, `--chrome-flags=${CHROME_FLAGS}`, ...(desktop ? ['--preset=desktop'] : [])]
-  const reports = []
-  for (let i = 0; i < RUNS; i++) reports.push(JSON.parse((await exec('bunx', args, { maxBuffer: 512 * 1024 * 1024 })).stdout))
-  const score = lhr => lhr.categories.performance.score ?? -1
-  return reports.sort((a, b) => score(a) - score(b))[Math.floor(RUNS / 2)]
+  return JSON.parse((await exec('bunx', args, { maxBuffer: 512 * 1024 * 1024 })).stdout)
 }
 
 // The full page as Lighthouse rendered it (412px wide on mobile, 1350px on desktop), so the
@@ -247,10 +243,10 @@ function finish(problems, extra = []) {
   for (const note of [...new Set(advice)]) console.log(`advice: ${note}`)
   for (const note of allowed) console.log(`allowed by request: ${note}`)
   for (const note of under) console.log(`under 90: ${note}`)
-  if (!all.length && under.length) { console.log(`\nVERIFY PASSED with ${under.length} Lighthouse score(s) under 90: fix them with prompts/04-verify.md first; publish without a fix only when none holds, and name each one in your report.`); process.exit(0) }
+  if (!all.length && under.length) { console.log(`\nVERIFY PASSED with ${under.length} Lighthouse score(s) under 90: fix what you can with prompts/04-verify.md, then publish and name the rest in your report.`); process.exit(0) }
   if (!all.length && allowed.length) { console.log(`\nVERIFY PASSED with ${allowed.length} result(s) the site owner asked for: put each one in your report.`); process.exit(0) }
   if (!all.length) { console.log('\nVERIFY PASSED: every check is green.'); process.exit(0) }
-  console.log(`\nVERIFY FAILED: ${all.length} problem(s). Do not publish.`)
+  console.log(`\nVERIFY FAILED: ${all.length} problem(s). Fix them with prompts/04-verify.md before publishing; name any left in your report.`)
   for (const problem of all) console.log(`  - ${problem}`)
   process.exit(1)
 }

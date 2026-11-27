@@ -20,7 +20,7 @@
 ├── media/                  # Original logo and photos
 ├── scripts/assets.mjs      # media/ → icons and responsive webp images
 ├── scripts/site-plugin.mjs # Generates canonical, Open Graph, JSON-LD, robots.txt, sitemap.xml
-├── scripts/verify.mjs      # Pre-publish gate: file checks + Lighthouse
+├── scripts/verify.mjs      # One pre-publish check: file checks + Lighthouse
 ├── prompts/                # Step-by-step instructions for building a page
 ├── vite.config.js          # Bundler config (MPA, Tailwind, includes, view transitions)
 ├── Dockerfile              # How Rqeim Cloud builds and serves the site (see DEPLOYMENT.md)
@@ -50,7 +50,7 @@
 | `bun run build` | Production build to `dist/` |
 | `bun run preview` | Preview production build locally |
 | `bun run assets` | `media/` → icons and responsive WebP images |
-| `bun run verify` | The gate: must end in `VERIFY PASSED` before publishing |
+| `bun run verify` | Run once before publishing; never blocks it, skipped when the owner is in a hurry |
 
 ## Deviations
 

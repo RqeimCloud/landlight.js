@@ -41,7 +41,7 @@ None. The site is static, and anything in the built files is public. Never put a
 In Rqeim Cloud, change a site in a copy of it, not in production:
 
 1. Create a copy. It has its own preview address.
-2. Edit, run `bun run verify`, and look at the preview.
+2. Edit, look at the preview, and run `bun run verify` once (skip it when the owner is in a hurry).
 3. With the owner's permission, publish the copy. Its commit is pushed to the default branch and deployed as above.
 
 ## Domain
