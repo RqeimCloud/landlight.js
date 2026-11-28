@@ -1,147 +1,68 @@
 {
-  "brand": {
-    "mono": "landlight.js",
-    "name": "Landlight",
-    "tagline": "Light landing pages built with HTML and Tailwind: no framework, no extra weight."
+  "brand": { "name": "Site name" },
+  "ui": {
+    "skip": "Skip to content",
+    "mainNav": "Main navigation",
+    "legalNav": "Legal links",
+    "switchLanguage": "Switch language"
   },
   "nav": {
+    "home": "Home",
     "contact": "Contact",
-    "features": "Features",
-    "how": "How it works",
-    "start": "Start your page"
-  },
-  "footer": {
-    "note": "A static landing page template by Rqeim.",
     "privacy": "Privacy",
     "terms": "Terms"
   },
-  "ui": {
-    "footerNav": "Site links",
-    "mainNav": "Main navigation",
-    "menu": "Open the menu",
-    "mobileNav": "Mobile navigation",
-    "skip": "Skip to content",
-    "switchLanguage": "Switch to Arabic",
-    "theme": "Switch between light and dark"
-  },
-  "language": {
-    "other": "ar",
-    "otherName": "ع"
-  },
+  "language": { "other": "ar", "otherName": "العربية" },
   "index": {
-    "description": "Landlight is a static landing page template built with HTML, Tailwind and Alpine: an HTML file per route, checked before publishing, a page per language.",
-    "title": "Landlight — a landing page built in minutes"
-  },
-  "hero": {
-    "cta": "Start your page",
-    "eyebrow": "Landlight · static by default",
-    "facts": {
-      "one": {
-        "label": "MPA",
-        "text": "One HTML file per route: no router, no moving parts."
-      },
-      "three": {
-        "label": "Alpine",
-        "text": "Menus and forms without a whole reactivity bundle, loaded on that page alone."
-      },
-      "two": {
-        "label": "Tailwind",
-        "text": "Version four, with the design tokens in CSS instead of a config file."
-      }
-    },
-    "secondary": "How it works",
-    "text": "Landlight is not a framework: an HTML file per route, Tailwind for the styling, and Alpine only where you truly need it. Nothing stands between the visitor and your page.",
-    "titleAfter": ", open before the visitor blinks.",
-    "titleBefore": "A landing page",
-    "titleGold": "built in minutes"
-  },
-  "features": {
-    "eyebrow": "Features",
-    "four": {
-      "text": "<code class=\"code-chip\">bun run build</code> writes a <code class=\"code-chip\">dist</code> folder ready for any static host.",
-      "title": "A static build"
-    },
-    "note": "Everything one landing page needs, with no unused packages and no settings you forget.",
-    "one": {
-      "text": "Every page is its own HTML file, and components come in with one <code class=\"code-chip\">&lt;include&gt;</code> line, so you read it as the visitor gets it.",
-      "title": "HTML first"
-    },
-    "three": {
-      "text": "The mobile menu, the form and the small state live on the tag itself, not in a component file that splits looks from behaviour.",
-      "title": "Alpine for interaction"
-    },
-    "title": "Lightness is not a slogan,<br /> it is how the page is built.",
-    "two": {
-      "text": "The whole identity sits in <code class=\"code-chip\">app.css</code>: colour, type and space. One token changes every page.",
-      "title": "Tailwind v4"
-    }
-  },
-  "how": {
-    "eyebrow": "How it works",
-    "file": "src/views/index.html",
-    "one": {
-      "text": "An HTML file in <code class=\"code-chip\">src/views</code> becomes a full page at its route, with a copy in every language.",
-      "title": "Write the page"
-    },
-    "result": "dist/ — static, ready to ship",
-    "three": {
-      "text": "The build checks the page before publishing, then you upload plain static files or put them behind any CDN.",
-      "title": "Publish"
-    },
-    "title": "Three steps,<br /> then a page on the internet.",
-    "two": {
-      "text": "Use the Tailwind utilities, and add a token to <code class=\"code-chip\">@theme</code> when you need a colour of your own.",
-      "title": "Style with tokens"
-    }
-  },
-  "cta": {
-    "button": "Get in touch",
-    "eyebrow": "Start here",
-    "text": "Start with one page and add only what you need. Nothing is built that you do not use.",
-    "title": "Ready for your first page?"
+    "title": "Site name — one line on what it offers and to whom",
+    "description": "A short description of the site and its audience, at least 120 characters.",
+    "eyebrow": "Starter skeleton",
+    "heading": "Home headline: what you offer and to whom",
+    "lead": "These pages are a neutral skeleton with no visual identity: write the offer, the audience and the primary action here, then design from the request itself.",
+    "cta": "Get in touch",
+    "secondary": "See services",
+    "servicesTitle": "Services",
+    "servicesLead": "Three services with their names and outcomes. Change the number and the sections as the request needs.",
+    "serviceOneTitle": "First service",
+    "serviceOne": "Two lines on the service and what the customer gets.",
+    "serviceTwoTitle": "Second service",
+    "serviceTwo": "Two lines on the service and what the customer gets.",
+    "serviceThreeTitle": "Third service",
+    "serviceThree": "Two lines on the service and what the customer gets.",
+    "aboutTitle": "About",
+    "about": "A short paragraph about the owner: who they are, what they know, what sets them apart. Replace it with real facts from the request.",
+    "closingTitle": "Ready to start?"
   },
   "contact": {
-    "back": "Back to home",
-    "description": "Talk to the Landlight team about your landing page: tell us who you serve and what the visitor should do, and we send a first draft before any payment.",
+    "title": "Contact — Site name",
+    "description": "Contact details: email and phone, and when the team responds.",
+    "heading": "Contact",
+    "lead": "Say how a visitor reaches you and when the team responds. The email and phone below are placeholders to replace with real details.",
     "emailLabel": "Email",
-    "eyebrow": "Contact",
-    "heading": "Tell us about your page",
-    "note": "We usually answer within one working day. No marketing mail, and your details are never shared with a third party.",
-    "phoneLabel": "Phone and WhatsApp",
-    "title": "Contact | Landlight",
-    "lead": "Tell us what you do, who you serve and what the visitor should do, and we send a first draft of the page before any commitment."
+    "email": "hello@example.com",
+    "phoneLabel": "Phone",
+    "phone": "+966 5X XXX XXXX"
   },
   "privacy": {
-    "contactHeading": "Contact and corrections",
-    "description": "Read what this Landlight site collects when you visit or contact us, how we use and protect it, and which rights you hold over your own data.",
-    "eyebrow": "Legal",
+    "title": "Privacy policy — Site name",
+    "description": "What this page collects, why, and how it is kept.",
     "heading": "Privacy policy",
-    "section": "What we collect",
-    "text": "Browsing this site collects no personal data. Only your theme and language preferences are stored in your own browser and never sent to a server. When you write or call, we keep the message and what it contains to answer you.",
-    "title": "Privacy policy | Landlight",
-    "updated": "Last updated: November 2026",
-    "useHeading": "How we use it",
-    "useText": "What you send is used to answer you and to deliver what we agree on, never for marketing and never sold. Visit statistics, if enabled, carry no personal identifiers.",
-    "lead": "We collect as little as possible, and we say exactly what that is."
+    "bodyOne": "List the data the page collects (form, analytics, cookies) and why.",
+    "bodyTwo": "State how long it is kept, who can see it, the visitor's right to have it deleted, and how to ask.",
+    "bodyThree": "This is placeholder copy for the skeleton; replace it with a real policy the owner reviews before publishing."
   },
   "terms": {
-    "contactHeading": "Questions",
-    "description": "Read the terms that govern your use of this Landlight site, including the limits of liability, ownership of the content, and how to reach us.",
-    "eyebrow": "Legal",
-    "heading": "Terms and conditions",
-    "section": "Using this site",
-    "text": "You use this site as it is, to read about the service and to reach us. Do not misuse it or try to disrupt it, and no page or link here is promised to stay without notice.",
-    "title": "Terms and conditions | Landlight",
-    "updated": "Last updated: November 2026",
-    "useHeading": "Ownership and liability",
-    "useText": "The Landlight name and marks belong to their owners, and the published templates are released under the MIT licence. We are not liable for a decision you take on this site's content alone.",
-    "lead": "Clear terms for using this site, with no vague clauses."
+    "title": "Terms — Site name",
+    "description": "Terms of using the site and the services offered.",
+    "heading": "Terms",
+    "bodyOne": "Write the terms of using the site and services: what is allowed, what is not, and who is responsible for what.",
+    "bodyTwo": "State the commitments, intellectual property and limits of liability as the owner requires.",
+    "bodyThree": "This is placeholder copy for the skeleton; replace it with real terms the owner reviews before publishing."
   },
   "notFound": {
-    "eyebrow": "Error 404",
-    "heading": "This page does not exist",
-    "home": "Back to home",
-    "text": "The link may have changed, or the page was removed.",
-    "title": "Page not found | Landlight"
+    "title": "Page not found — Site name",
+    "heading": "Page not found",
+    "lead": "The link may have changed or the page was removed. Start again from home.",
+    "cta": "Go home"
   }
 }

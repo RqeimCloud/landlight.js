@@ -3,45 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <include src="src/components/theme.html"></include>
   <title>{{t:terms.title}}</title>
   <meta name="description" content="{{t:terms.description}}" />
   <link rel="stylesheet" href="/app.css" />
 </head>
-<body class="antialiased">
+<body>
   <include src="src/components/header.html"></include>
 
-  <main id="main" class="relative">
-  <include src="src/components/backdrop.html"></include>
-
-  <div class="page-shell">
-    <p class="eyebrow mono">{{t:terms.eyebrow}}</p>
-    <h1 class="page-title">{{t:terms.heading}}</h1>
-    <p class="page-lead">{{t:terms.lead}}</p>
-
-    <p class="mt-6 text-sm text-muted">{{t:terms.updated}}</p>
-
-    <div class="mt-10 flex flex-col gap-8">
-      <section class="flex flex-col gap-3">
-        <h2 class="font-display text-xl text-ink">{{t:terms.section}}</h2>
-        <p class="text-[15px] leading-[1.9] text-ink-soft">{{t:terms.text}}</p>
-      </section>
-      <section class="flex flex-col gap-3">
-        <h2 class="font-display text-xl text-ink">{{t:terms.useHeading}}</h2>
-        <p class="text-[15px] leading-[1.9] text-ink-soft">{{t:terms.useText}}</p>
-      </section>
-      <section class="flex flex-col gap-3">
-        <h2 class="font-display text-xl text-ink">{{t:terms.contactHeading}}</h2>
-        <p class="text-[15px] leading-[1.9] text-ink-soft">
-          <a href="mailto:{{email}}" class="underline underline-offset-4 transition-colors hover:text-gold-ink" dir="ltr">{{email}}</a>
-        </p>
-      </section>
+  <main id="main" class="shell py-16">
+    <h1 class="text-3xl font-semibold">{{t:terms.heading}}</h1>
+    <div class="mt-6 max-w-2xl space-y-5 leading-8 text-ink-soft">
+      <p>{{t:terms.bodyOne}}</p>
+      <p>{{t:terms.bodyTwo}}</p>
+      <p>{{t:terms.bodyThree}}</p>
     </div>
-  </div>
-</main>
+  </main>
 
   <include src="src/components/footer.html"></include>
-
   <script type="module" src="/app.js"></script>
 </body>
 </html>

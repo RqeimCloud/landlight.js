@@ -1,23 +1,22 @@
 {
-  "url": "https://app-5wtohdghdfgh-prod.rqeim.dev",
-  "email": "contact@rqeim.com",
-  "phone": "+966510095363",
+  "url": "https://example.com",
+  "email": "hello@example.com",
+  "phone": "+966 5X XXX XXXX",
   "sameAs": [],
   "brand": {
-    "theme": "#0a0a0b",
-    "themeLight": "#faf6ee",
-    "background": "#0a0a0b"
+    "theme": "#18181b",
+    "background": "#ffffff"
   },
   "locales": {
     "ar": {
       "og": "ar_SA",
-      "name": "لاندلايت",
-      "description": "قالب صفحات هبوط ثابت يُبنى بـHTML وTailwind: سريع، وصولي، ويُخرج صفحة حقيقية لكل لغة."
+      "name": "اسم الموقع",
+      "description": "قالب «موقع ويب»: هيكل محايد للصفحات الثابتة، يُصمَّم لكل طلب، بلغة واحدة أو أكثر."
     },
     "en": {
       "og": "en_US",
-      "name": "Landlight.js",
-      "description": "A static landing page template built with HTML and Tailwind: fast, accessible, one real page per language."
+      "name": "Site name",
+      "description": "The Website template: a neutral static-page skeleton, designed per request, in one language or more."
     }
   },
   "business": null,

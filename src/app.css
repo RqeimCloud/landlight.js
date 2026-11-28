@@ -1,735 +1,104 @@
 @import "tailwindcss";
 
-/* ================================================================
-   لاندلايت — ليل عميق وذهب شمبانيا (وهو خيار المستخدم أيضًا: ورق عاجي)
-   كل الألوان والخطوط هنا. غيّر رمزًا واحدًا تتغيّر الصفحة كلها.
-   الوضعان من `light-dark()`: بلا تكرار وبلا أصناف `dark:` في الصفحات.
-   ================================================================ */
+/*
+ * Neutral skeleton: no brand colour, no display face, no decoration. The design
+ * comes from the request; add your own tokens here and the classes you need.
+ * See prompts/02-design.md and prompts/design-options.md.
+ */
 
-/* ---------- الخطوط: من هذا المشروع، لا من مزوّد خارجي ---------- */
+/* One text face: IBM Plex Sans Arabic, both scripts, two weights. */
 @font-face {
-  font-family: "IBM Plex Sans Arabic";
+  font-family: "Plex Arabic";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url("/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2") format("woff2");
-  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897,
+    U+08A0-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF,
+    U+FE70-FE74, U+FE76-FEFC;
 }
 @font-face {
-  font-family: "IBM Plex Sans Arabic";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/ibm-plex-sans-arabic-latin-400-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: "IBM Plex Sans Arabic";
+  font-family: "Plex Arabic";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
   src: url("/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2") format("woff2");
-  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897,
+    U+08A0-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF,
+    U+FE70-FE74, U+FE76-FEFC;
 }
 @font-face {
-  font-family: "IBM Plex Sans Arabic";
+  font-family: "Plex Arabic";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-sans-arabic-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Plex Arabic";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
   src: url("/fonts/ibm-plex-sans-arabic-latin-600-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* خط العناوين العربية. optional لا swap: العنوان هو أكبر عنصر في الشاشة الأولى، فلا نريد إزاحة تخطيط بعد الرسم */
-@font-face {
-  font-family: "Amiri";
-  font-style: normal;
-  font-weight: 700;
-  font-display: optional;
-  src: url("/fonts/amiri-arabic-700-normal.woff2") format("woff2");
-  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
-}
-@font-face {
-  font-family: "Cormorant Garamond";
-  font-style: normal;
-  font-weight: 600;
-  font-display: optional;
-  src: url("/fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: "IBM Plex Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* ---------- الرموز: تعريف واحد، وضعان ---------- */
-:root {
-  color-scheme: light dark;
-
-  --paper: light-dark(#faf6ee, #0a0a0b);
-  --paper-deep: light-dark(#f3ecdd, #111113);
-  --surface: light-dark(#fffdf8, #151517);
-  --surface-up: light-dark(#fffefb, #1b1b1e);
-
-  --ink: light-dark(#1a1712, #f3ede1);
-  --ink-soft: light-dark(#403a2f, #c2bbad);
-  --muted: light-dark(#6b6353, #8b8579);
-
-  --line: light-dark(#e4dac6, #26241f);
-  --line-strong: light-dark(#d3c6ab, #36322a);
-
-  /* gold: الحدود والأزرار. gold-ink: الذهب الذي يُقرأ كنص */
-  --gold: light-dark(#b3893f, #c9a96b);
-  --gold-ink: light-dark(#7d5f26, #c9a96b);
-  --gold-light: light-dark(#8a6a2c, #ead6a6);
-  --gold-deep: light-dark(#7a5c21, #8f6f35);
-  --accent-soft: light-dark(#f4ead2, #2a2418);
-  /* ثلاثية rgb للتوهّج والحدود الشفافة */
-  --glow: light-dark(179 137 63, 201 169 107);
-
-  --face-sans: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --face-display: "Amiri", "Cormorant Garamond", ui-serif, Georgia, serif;
-  --face-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-}
-
-/* الصفحة الإنجليزية تعرض بالمقارن اللاتيني */
-html[lang="en"] {
-  --face-display: "Cormorant Garamond", "Amiri", ui-serif, Georgia, serif;
-}
-
-/* اختيار المستخدم الصريح يتقدّم على تفضيل النظام */
-html.light { color-scheme: light; }
-html.dark { color-scheme: dark; }
-
-@theme inline {
-  --color-paper: var(--paper);
-  --color-paper-deep: var(--paper-deep);
-  --color-surface: var(--surface);
-  --color-surface-up: var(--surface-up);
-  --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
-  --color-line-strong: var(--line-strong);
-  --color-gold: var(--gold);
-  --color-gold-ink: var(--gold-ink);
-  --color-gold-light: var(--gold-light);
-  --color-gold-deep: var(--gold-deep);
-  --color-accent-soft: var(--accent-soft);
-
-  --font-sans: var(--face-sans);
-  --font-display: var(--face-display);
-  --font-mono: var(--face-mono);
-  --font-numeral: var(--face-display);
-}
-
-/* `dark:` يبقى متاحًا لصفحة تحتاجه، ويتبع الصنف أو تفضيل النظام */
-@custom-variant dark {
-  &:where(.dark, .dark *) {
-    @slot;
-  }
-  @media (prefers-color-scheme: dark) {
-    &:where(:root:not(.light), :root:not(.light) *) {
-      @slot;
-    }
-  }
+@theme {
+  --color-paper: #ffffff;
+  --color-paper-deep: #f5f5f4;
+  --color-ink: #18181b;
+  --color-ink-soft: #52525b;
+  --color-line: #e4e4e7;
+  --font-sans: "Plex Arabic", ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
   html {
-    scroll-padding-top: 6rem;
-    -webkit-text-size-adjust: 100%;
-    scroll-behavior: smooth;
-    view-transition-name: root;
+    scroll-padding-top: 5rem;
   }
-
   body {
-    background-color: var(--paper);
-    color: var(--ink);
-    font-family: var(--face-sans);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-paper text-ink antialiased;
+    font-family: var(--font-sans);
   }
-
-  /* حبيبات خفيفة تمنح الخلفية ملمس الورق */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    pointer-events: none;
-    opacity: light-dark(0.05, 0.045);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  h1,
+  h2,
+  h3 {
+    @apply text-balance;
   }
-
-  ::selection {
-    background: var(--gold);
-    color: var(--paper);
-  }
-
-  pre,
-  code,
-  .mono {
-    font-family: var(--face-mono);
-    font-feature-settings: "tnum" 1;
-  }
-
-  .font-display {
-    font-family: var(--face-display);
-    font-weight: 700;
-    letter-spacing: 0;
-  }
-
-  html[lang="en"] .font-display {
-    font-weight: 600;
-    letter-spacing: -0.015em;
-  }
-
-  .font-numeral {
-    font-family: var(--face-display);
-    font-feature-settings: "lnum" 1;
-  }
-
-  [x-cloak] {
-    display: none !important;
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
   }
 }
 
 @layer components {
-  /* سطر صغير فوق الأقسام، بخطّين ذهبيين على جانبيه */
+  .shell {
+    @apply mx-auto w-full max-w-5xl px-5;
+  }
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-50 focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-paper;
+  }
   .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.85rem;
-    font-family: var(--face-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--gold-ink);
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-ink-soft;
   }
-
-  .eyebrow::before,
-  .eyebrow.is-centered::after {
-    content: "";
-    width: 2rem;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-ink));
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md bg-ink px-5 py-3 text-sm font-semibold text-paper no-underline transition-colors hover:bg-ink-soft;
   }
-
-  .eyebrow.is-centered::after {
-    background: linear-gradient(90deg, var(--gold-ink), transparent);
-  }
-
-  [dir="rtl"] .eyebrow::before {
-    background: linear-gradient(-90deg, transparent, var(--gold-ink));
-  }
-
-  [dir="rtl"] .eyebrow.is-centered::after {
-    background: linear-gradient(-90deg, var(--gold-ink), transparent);
-  }
-
-  /* العربية بلا تباعد حروف ولا أحرف كبيرة: القاعدة في prompts/02-design.md */
-  html:is([lang="ar"], [lang="fa"], [lang="ur"]) .eyebrow {
-    letter-spacing: 0;
-    text-transform: none;
-  }
-
-  /* نص بتدرّج ذهبي */
-  .text-gold-grad {
-    background: linear-gradient(
-      100deg,
-      var(--gold-deep) 0%,
-      var(--gold) 35%,
-      var(--gold-light) 60%,
-      var(--gold) 85%
-    );
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: gold-sheen 9s ease-in-out infinite;
-  }
-
-  @keyframes gold-sheen {
-    0%,
-    100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-
-  /* ==== الهيدر ==== */
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    border-bottom: 1px solid transparent;
-    backdrop-filter: blur(16px);
-  }
-
-  @supports (animation-timeline: scroll()) {
-    .site-header {
-      animation: header-solid linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 4px 80px;
-    }
-  }
-
-  @supports not (animation-timeline: scroll()) {
-    .site-header {
-      background: color-mix(in oklab, var(--paper) 84%, transparent);
-      border-bottom-color: var(--line);
-    }
-  }
-
-  @keyframes header-solid {
-    from {
-      background: transparent;
-      border-bottom-color: transparent;
-    }
-    to {
-      background: color-mix(in oklab, var(--paper) 82%, transparent);
-      border-bottom-color: var(--line);
-    }
-  }
-
-  /* قائمة الجوال: popover من المنصة، بلا مكتبة */
-  .site-menu {
-    position: fixed;
-    inset-inline: 0;
-    top: 4.5rem;
-    margin: 0;
-    width: 100%;
-    max-width: 100%;
-    border: 0;
-    border-bottom: 1px solid var(--line);
-    background: color-mix(in oklab, var(--paper) 96%, transparent);
-    backdrop-filter: blur(18px);
-    padding: 0;
-    opacity: 0;
-    translate: 0 -0.5rem;
-    transition: opacity 0.22s ease, translate 0.22s ease, overlay 0.22s allow-discrete,
-      display 0.22s allow-discrete;
-  }
-
-  .site-menu:popover-open {
-    opacity: 1;
-    translate: 0 0;
-  }
-
-  @starting-style {
-    .site-menu:popover-open {
-      opacity: 0;
-      translate: 0 -0.5rem;
-    }
-  }
-
-  .site-menu::backdrop {
-    background: rgb(10 10 11 / 0.4);
-  }
-
-  .nav-link {
-    position: relative;
-    font-size: 0.875rem;
-    color: var(--ink-soft);
-    transition: color 0.25s ease;
-  }
-
-  .nav-link::after {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    bottom: -0.4rem;
-    height: 1px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
-
-  .nav-link:hover,
-  .nav-link[aria-current="page"] {
-    color: var(--ink);
-  }
-
-  .nav-link:hover::after,
-  .nav-link[aria-current="page"]::after {
-    transform: scaleX(1);
-  }
-
-  /* ==== الأزرار ==== */
-  .btn-gold,
   .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    border-radius: 999px;
-    padding: 0.85rem 1.75rem;
-    font-size: 0.875rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease,
-      border-color 0.3s ease, background-color 0.3s ease;
+    @apply inline-flex items-center justify-center rounded-md border border-line px-5 py-3 text-sm font-semibold text-ink no-underline transition-colors hover:bg-paper-deep;
   }
-
-  .btn-gold {
-    position: relative;
-    font-weight: 600;
-    color: light-dark(#1b1607, #17130b);
-    background: linear-gradient(
-      180deg,
-      light-dark(#d9b876, #ead6a6) 0%,
-      var(--gold) 55%,
-      light-dark(#a87c31, #b08f52) 100%
-    );
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45),
-      0 10px 30px -12px rgb(var(--glow) / 0.55);
+  .card {
+    @apply rounded-lg border border-line bg-paper p-6;
   }
-
-  .btn-gold:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.06);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 16px 40px -14px rgb(var(--glow) / 0.75);
+  .link {
+    @apply text-ink-soft underline decoration-line underline-offset-4 transition-colors hover:text-ink;
   }
-
-  .btn-ghost {
-    font-weight: 500;
-    color: var(--ink);
-    border: 1px solid rgb(var(--glow) / 0.32);
-    background: rgb(var(--glow) / 0.04);
-  }
-
-  .btn-ghost:hover {
-    border-color: rgb(var(--glow) / 0.62);
-    background: rgb(var(--glow) / 0.08);
-  }
-
-  /* ==== بطاقة بإطار متدرّج رفيع ==== */
-  .card-lux {
-    position: relative;
-    border-radius: 1.5rem;
-    background: linear-gradient(180deg, var(--surface), var(--paper-deep));
-    isolation: isolate;
-    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.45s ease;
-  }
-
-  .card-lux::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      160deg,
-      rgb(var(--glow) / 0.38),
-      rgb(var(--glow) / 0.06) 40%,
-      rgb(var(--glow) / 0.04) 60%,
-      rgb(var(--glow) / 0.22)
-    );
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-
-  .card-lux.is-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 30px 60px -35px rgb(var(--glow) / 0.35);
-  }
-
-  /* أيقونة داخل حلقة ذهبية */
-  .icon-ring {
-    display: grid;
-    place-items: center;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 999px;
-    color: var(--gold-light);
-    background: radial-gradient(circle at 30% 25%, rgb(var(--glow) / 0.16), transparent 70%),
-      var(--paper);
-    box-shadow: inset 0 0 0 1px rgb(var(--glow) / 0.35), 0 0 0 6px rgb(var(--glow) / 0.04);
-  }
-
-  /* فاصل زخرفي: خط، معيّن، خط */
-  .ornament {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    color: var(--gold);
-  }
-
-  .ornament::before,
-  .ornament::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgb(var(--glow) / 0.45));
-  }
-
-  .ornament::after {
-    background: linear-gradient(90deg, rgb(var(--glow) / 0.45), transparent);
-  }
-
-  .code-chip {
-    font-family: var(--face-mono);
-    font-size: 0.8125rem;
-    border-radius: 0.375rem;
-    padding: 0.1rem 0.4rem;
-    color: var(--gold-ink);
-    background: rgb(var(--glow) / 0.09);
-    box-shadow: inset 0 0 0 1px rgb(var(--glow) / 0.18);
-  }
-
   .field {
-    width: 100%;
-    border-radius: 0.875rem;
-    border: 1px solid var(--line-strong);
-    background-color: var(--paper);
-    padding: 0.85rem 1rem;
-    font-size: 1rem;
-    color: var(--ink);
-    transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
-  }
-
-  .field::placeholder {
-    color: var(--muted);
-  }
-
-  .field:focus {
-    outline: none;
-    border-color: rgb(var(--glow) / 0.7);
-    background-color: var(--surface);
-    box-shadow: 0 0 0 4px rgb(var(--glow) / 0.12);
-  }
-
-  .label {
-    font-family: var(--face-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  /* ==== هيكل الصفحة: كل صفحة تبدأ من هنا، فهو واحد في كل الصفحات ==== */
-  .page-shell {
-    position: relative;
-    margin-inline: auto;
-    max-width: 48rem;
-    padding-inline: 1.25rem;
-    padding-block: 5rem;
-  }
-
-  @media (min-width: 768px) {
-    .page-shell {
-      padding-block: 7rem;
-    }
-  }
-
-  .page-title {
-    font-family: var(--face-display);
-    font-weight: 700;
-    font-size: clamp(2.1rem, 5vw, 3.5rem);
-    line-height: 1.28;
-    letter-spacing: 0;
-    color: var(--ink);
-    text-wrap: balance;
-  }
-
-  html[lang="en"] .page-title {
-    font-weight: 600;
-    letter-spacing: -0.015em;
-  }
-
-  .page-lead {
-    margin-top: 1.5rem;
-    max-width: 42rem;
-    font-size: 1rem;
-    line-height: 1.9;
-    color: var(--ink-soft);
-  }
-
-  @media (min-width: 768px) {
-    .page-lead {
-      font-size: 1.0625rem;
-    }
-  }
-
-  /* عنوان صفحة قصيرة في وسط الشاشة (404) */
-  .page-shell.is-centered {
-    text-align: center;
-  }
-
-  .page-shell.is-centered .page-lead {
-    margin-inline: auto;
-  }
-
-  /* ==== الخلفيات الزخرفية (رموز، فتعمل في الوضعين) ==== */
-  .glow-hero {
-    background: radial-gradient(60% 55% at 50% 0%, rgb(var(--glow) / 0.18), transparent 70%);
-  }
-
-  .glow-corner {
-    background: radial-gradient(35% 40% at 85% 10%, rgb(var(--glow) / 0.1), transparent 70%);
-  }
-
-  .glow-panel {
-    background: radial-gradient(60% 80% at 50% 0%, rgb(var(--glow) / 0.2), transparent 70%);
-  }
-
-  .glow-side {
-    background: radial-gradient(45% 60% at 85% 50%, rgb(var(--glow) / 0.08), transparent 70%);
-  }
-
-  .hero-grid {
-    background-image: linear-gradient(rgb(var(--glow) / 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(var(--glow) / 0.08) 1px, transparent 1px);
-    background-size: 72px 72px;
-    mask-image: radial-gradient(60% 60% at 50% 20%, #000, transparent 75%);
-    -webkit-mask-image: radial-gradient(60% 60% at 50% 20%, #000, transparent 75%);
-  }
-
-  .fade-to-paper {
-    background: linear-gradient(to bottom, transparent, var(--paper));
-  }
-
-  .hairline-top::before {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    top: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgb(var(--glow) / 0.45), transparent);
-  }
-}
-
-/* تركيز واضح للوحة المفاتيح، لا يُلغيه أي أداة */
-:where(a, button, input, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-  border-radius: 0.25rem;
-}
-
-/* رابط التخطي: مخفي إلا عند التركيز */
-.skip-link {
-  position: absolute;
-  inset-inline-start: 0.75rem;
-  top: 0.75rem;
-  z-index: 200;
-  padding: 0.7rem 1rem;
-  border-radius: 0.75rem;
-  background: var(--surface);
-  color: var(--ink);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
-  transform: translateY(-200%);
-  transition: transform 0.2s ease;
-}
-
-.skip-link:focus-visible {
-  transform: translateY(0);
-}
-
-/* مبدّل المظهر: يظهر مع JavaScript وحده، فبلا JS تتبع الصفحة النظام */
-html:not(.js) [data-theme-toggle] {
-  display: none;
-}
-
-.icon-sun {
-  display: none;
-}
-
-.icon-moon {
-  display: block;
-}
-
-@media (prefers-color-scheme: dark) {
-  html:not(.light) .icon-sun {
-    display: block;
-  }
-  html:not(.light) .icon-moon {
-    display: none;
-  }
-}
-
-html.dark .icon-sun {
-  display: block;
-}
-
-html.dark .icon-moon {
-  display: none;
-}
-
-html.light .icon-sun {
-  display: none;
-}
-
-html.light .icon-moon {
-  display: block;
-}
-
-/* كشف العناصر عند التمرير — بلا JS يبقى المحتوى ظاهرًا */
-html.js .reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  filter: blur(3px);
-  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
-    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.9s ease;
-  transition-delay: var(--d, 0s);
-}
-
-html.js .reveal.is-visible {
-  opacity: 1;
-  transform: none;
-  filter: none;
-}
-
-/* What the visitor sees on arrival is not animated at all: no fade, and no layout shift. */
-html.js .reveal.is-visible.no-anim {
-  transition: none;
-}
-
-/* انتقال الصفحات */
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.45s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  html.js .reveal {
-    opacity: 1;
-    transform: none;
-    filter: none;
-    transition: none;
-  }
-
-  .text-gold-grad {
-    animation: none;
-  }
-
-  .site-header {
-    animation: none;
-    background: color-mix(in oklab, var(--paper) 88%, transparent);
-    border-bottom-color: var(--line);
-  }
-
-  .btn-gold:hover,
-  .card-lux.is-hover:hover {
-    transform: none;
-  }
-
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
+    @apply w-full rounded-md border border-line bg-paper px-3 py-2.5 text-sm text-ink;
   }
 }

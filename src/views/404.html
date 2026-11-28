@@ -3,28 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <include src="src/components/theme.html"></include>
   <title>{{t:notFound.title}}</title>
-  <meta name="description" content="{{t:notFound.text}}" />
+  <meta name="robots" content="noindex" />
   <link rel="stylesheet" href="/app.css" />
 </head>
-<body class="antialiased">
+<body>
   <include src="src/components/header.html"></include>
 
-  <main id="main" class="relative">
-  <include src="src/components/backdrop.html"></include>
-
-  <div class="page-shell is-centered">
-    <p class="eyebrow is-centered mono">{{t:notFound.eyebrow}}</p>
-    <h1 class="page-title">{{t:notFound.heading}}</h1>
-    <p class="page-lead">{{t:notFound.text}}</p>
-    <p lang="en" dir="ltr" class="mt-2 text-base leading-[1.9] text-muted">This page does not exist.</p>
-    <a href="{{href:index}}" class="btn-gold mt-10">{{t:notFound.home}}</a>
-  </div>
-</main>
+  <main id="main" class="shell py-24">
+    <p class="eyebrow">404</p>
+    <h1 class="mt-4 text-3xl font-semibold">{{t:notFound.heading}}</h1>
+    <p class="mt-4 max-w-xl leading-8 text-ink-soft">{{t:notFound.lead}}</p>
+    <a href="{{href:index}}" class="btn mt-8">{{t:notFound.cta}}</a>
+  </main>
 
   <include src="src/components/footer.html"></include>
-
   <script type="module" src="/app.js"></script>
 </body>
 </html>

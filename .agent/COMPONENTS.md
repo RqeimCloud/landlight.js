@@ -12,18 +12,18 @@ Paths are always relative to the **project root** (the directory containing `vit
 
 A partial is inserted as it is (`<slot>` is not supported). Its words are `{{t:key}}` tokens, so one copy serves every language: see `PAGES.md`.
 
-The template ships four:
+The template ships two, both plain structure:
 
 | Partial | What it does | Needs |
 |---|---|---|
-| `header.html` | Skip link, logo, navigation, language switch, theme toggle, mobile menu | `popover` (platform), `src/app.js` |
-| `footer.html` | Brand, links, legal links, email | nothing |
-| `theme.html` | Applies the stored light/dark choice before paint, adds `html.js` | must sit in `<head>` of every page |
-| `backdrop.html` | The gold glow, the grid and the fade every page starts with | first thing inside `<main class="relative">` |
+| `header.html` | Skip link, site name, navigation, language switch | nothing |
+| `footer.html` | Site name, legal links, contact link | nothing |
 
-Every page opens with the same chrome: `<main id="main" class="relative">` holds `backdrop.html`, then a `.page-shell` with `.eyebrow`, `.page-title` and `.page-lead`. The landing page keeps its larger hero, and `404` uses the same shell with `is-centered`; change the shell in `src/app.css`, never per page.
+Every page opens with `<include src="src/components/header.html">`, wraps its content in `<main id="main">`, and closes with the footer. A design that needs a mobile menu, a sticky header or a theme switch adds it as part of that design; the skeleton keeps none.
 
-The mobile menu is a `popover` and the sticky header frosts itself with a scroll-driven CSS animation: neither needs Alpine. A page that wants state adds `x-data` and only then downloads Alpine.
+## Alpine.js components
+
+Use Alpine on any page or component that needs state; pages without `x-data` do not download it:
 
 ## Alpine.js components
 
